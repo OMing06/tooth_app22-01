@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.tooset_test02">
+
+
+    <!-- 블루투스 권한 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!-- 위치 권한 -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 인터넷 권한 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 갤러리 접근 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher_tooset1"
+        android:label="TooSet"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Tooset_test02">
+        <activity
+            android:name=".ReviewAddActivity"
+            android:exported="true"
+            android:label="Review Page"
+            android:parentActivityName=".ReviewActivity"
+            />
+        <activity
+            android:name=".UserAddActivity"
+            android:label="Profile"
+            android:exported="true" />
+        <activity
+            android:name=".PasswordResetActivity"
+            android:exported="true"
+            android:label="Password Reset Page"
+            android:parentActivityName=".LoginActivity"
+            />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:label="Login"
+            android:parentActivityName=".MainActivity"
+            />
+        <activity
+            android:name=".JoinActivity"
+            android:label="Join"
+            android:exported="true" />
+        <activity
+            android:name=".FaqActivity"
+            android:exported="false"
+            android:label="FAQ"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ReviewActivity"
+            android:exported="false"
+            android:label="Review Page"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TemHumActivity"
+            android:exported="false"
+            android:label="Humidity Page"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".UpdateActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AddActivity"
+            android:exported="false"
+            android:label="Add Page"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

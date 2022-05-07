@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "262853300997",
+    "project_id": "tooset-2022-01",
+    "storage_bucket": "tooset-2022-01.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262853300997:android:73ded86b9af3cb4d569d6c",
+        "android_client_info": {
+          "package_name": "com.example.tooset_test02"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262853300997-le64qq8dlcva3h2u3fkcpkibbi9di29p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzRiD6Z6Dg_3UTubt3UYKlCJ7GXhm9JtQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262853300997-le64qq8dlcva3h2u3fkcpkibbi9di29p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
