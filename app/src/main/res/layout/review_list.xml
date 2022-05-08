@@ -55,6 +55,12 @@
                 android:layout_height="wrap_content"
                 android:text="TextView" />
 
+            <ImageView
+                android:id="@+id/iv_review_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/baseline_add_a_photo_24" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

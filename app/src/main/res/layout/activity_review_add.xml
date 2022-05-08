@@ -32,10 +32,28 @@
         android:hint="아쉬운 점이 있나요?"
         android:inputType="textPersonName" />
 
+    <ImageView
+        android:id="@+id/iv_reviewImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/no_picture_image" />
+
+    <Button
+        android:id="@+id/review_addImage_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="사진추가" />
+
     <Button
         android:id="@+id/review_add_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="확인" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

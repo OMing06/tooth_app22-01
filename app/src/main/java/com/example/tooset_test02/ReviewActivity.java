@@ -34,7 +34,6 @@ import java.util.ArrayList;
 
 public class ReviewActivity extends AppCompatActivity {
 
-
     FloatingActionButton add_reviewButton;
     RecyclerView recyclerView;
 
@@ -42,7 +41,6 @@ public class ReviewActivity extends AppCompatActivity {
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db;
     FirebaseUser user;
-    UserInfo profile;
     private static final String TAG = "ReviewActivity";
 
     @Override

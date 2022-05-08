@@ -54,12 +54,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserAddActivity extends AppCompatActivity {
 
-    //FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseFirestore db;
-    FirebaseUser user;
-    UserInfo profile;
     private static final String TAG = "UserAddActivity";
-
 
     EditText write_nickname;
     Button profile_add_button;
@@ -134,7 +129,7 @@ public class UserAddActivity extends AppCompatActivity {
 
                     if(dataSnapshot.hasChild("image")) {
                         String image = dataSnapshot.child("image").getValue().toString();
-                        Picasso.get().load(image).into(profile_image);
+                        Picasso.get().load(image).error(R.drawable.no_picture_image).into(profile_image);
                     }
                 }
             }

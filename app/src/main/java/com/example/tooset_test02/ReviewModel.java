@@ -2,24 +2,25 @@ package com.example.tooset_test02;
 
 public class ReviewModel {
 
-    String title;
-    String good_review;
-    String bad_review;
-    String now_date;
+    private String title;
+    private String good_review;
+    private String bad_review;
+    private String now_date;
+    private String imageUrl;
+    private String reviewUserName;
 
-    String reviewUserName;
-
-    ReviewModel() {
+    public ReviewModel() {
 
     }
 
-    public ReviewModel(String title, String good_review, String bad_review, String reviewUserName, String now_date) {
+    public ReviewModel(String title, String good_review, String bad_review,
+                       String reviewUserName, String now_date, String imageUrl) {
         this.title = title;
         this.good_review = good_review;
         this.bad_review = bad_review;
         this.reviewUserName = reviewUserName;
         this.now_date = now_date;
-        //this.reviewUrl = reviewUrl;
+        this.imageUrl = imageUrl;
     }
 
     public String getTitle() {
@@ -60,6 +61,14 @@ public class ReviewModel {
 
     public void setNow_date(String now_date) {
         this.now_date = now_date;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
 
