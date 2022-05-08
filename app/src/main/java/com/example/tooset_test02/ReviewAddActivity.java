@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -54,9 +56,7 @@ import java.util.Map;
 
 public class ReviewAddActivity extends AppCompatActivity {
 
-    //private static final int PICK_IMAGE_REQUEST = 1;
-
-    TextView tv_reviewTitle, tv_reviewGood, tv_reviewBad;
+    EditText tv_reviewTitle, tv_reviewGood, tv_reviewBad;
     Button review_add_button, review_addImage_button;
     ImageView iv_reviewImage;
     ProgressBar progressBar2;
@@ -72,8 +72,6 @@ public class ReviewAddActivity extends AppCompatActivity {
 
     String userNameV;
     ReviewModel reviewModel;
-
-    //getImageUrl
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,95 +161,6 @@ public class ReviewAddActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    private void processInsert() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("title", tv_reviewTitle.getText().toString());
-        map.put("good_review", tv_reviewGood.getText().toString());
-        map.put("bad_review", tv_reviewBad.getText().toString());
-        map.put("reviewUserName", userNameV);
-        //map.put("imageUrl", databaseReference.push().getKey());
-        map.put("now_date",getTime());
-
-
-
-
-
-        final StorageReference fileRef = storageProfileRef.child(System.currentTimeMillis()+"."+getFileExtension(imageUri));
-        fileRef.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                Task<Uri> downloadUrl = taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Uri> task) {
-                        String t= task.getResult().toString();
-
-                        DatabaseReference newPost=databaseReference.push();
-                        map.put("imageUrl", newPost.child("imageUrl").setValue(task.getResult().toString()));
-                    }
-                });
-
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                progressBar2.setVisibility(View.VISIBLE);
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar2.setVisibility(View.INVISIBLE);
-                Toast.makeText(ReviewAddActivity.this, "업로드실패애애애ㅐ", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-
-
-
-
-
-
-
-        FirebaseDatabase.getInstance().getReference().child("Reviews").push()
-                .setValue(map)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        tv_reviewTitle.setText("");
-                        tv_reviewGood.setText("");
-                        tv_reviewBad.setText("");
-                        //iv_reviewImage.setImageResource(myUri);
-                        Toast.makeText(getApplicationContext(), "리뷰 작성 완료",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "작성에 실패했습니다.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
 
     //선택한 사진 가져오기
@@ -267,49 +176,155 @@ public class ReviewAddActivity extends AppCompatActivity {
         } else { }
     }
 
-/*    private void uploadReviewImage(Uri uri) {
-
-        final StorageReference fileRef = storageProfileRef.child(System.currentTimeMillis()+"."+getFileExtension(uri));
-        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-
-                        ReviewModel reviewModel = new ReviewModel();
-                        String reviewModelId = databaseReference.push().getKey();
-                        databaseReference.child(reviewModelId).setValue(reviewModel);
-
-
-                        progressBar2.setVisibility(View.INVISIBLE);
-                        Toast.makeText(ReviewAddActivity.this, "tjdrhd", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                progressBar2.setVisibility(View.VISIBLE);
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                progressBar2.setVisibility(View.INVISIBLE);
-                Toast.makeText(ReviewAddActivity.this, "업로드실패애애애ㅐ", Toast.LENGTH_LONG).show();
-            }
-        });
-
-    }*/
-
     private String getFileExtension(Uri mUri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(mUri));
     }
+
+
+
+
+
+
+
+    private void processInsert() {
+
+
+
+
+
+
+        final StorageReference fileRef = storageProfileRef
+                .child(mAuth.getCurrentUser().getUid() + ".jpg");
+        uploadTask = fileRef.putFile(imageUri);
+        uploadTask.continueWithTask(new Continuation() {
+            @Override
+            public Object then(@NonNull Task task) throws Exception {
+                if(!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                return fileRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if(task.isSuccessful()) {
+
+
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("title", tv_reviewTitle.getText().toString());
+                    map.put("good_review", tv_reviewGood.getText().toString());
+                    map.put("bad_review", tv_reviewBad.getText().toString());
+                    map.put("reviewUserName", userNameV);
+                    //map.put("imageUrl", databaseReference.push().getKey());
+                    map.put("now_date",getTime());
+
+
+
+
+
+
+                    Uri downloadUrl = task.getResult();
+                    myUri = downloadUrl.toString();
+
+                    map.put("imageUrl", downloadUrl.toString());
+
+                    //databaseReference.child(mAuth.getCurrentUser().getUid()).updateChildren(map);
+
+
+
+                    FirebaseDatabase.getInstance().getReference().child("Reviews").push()
+                            .setValue(map)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    tv_reviewTitle.setText("");
+                                    tv_reviewGood.setText("");
+                                    tv_reviewBad.setText("");
+                                    //iv_reviewImage.setImageResource(myUri);
+                                    Toast.makeText(getApplicationContext(), "리뷰 작성 완료",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "작성에 실패했습니다.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+
+
+
+                }
+            }
+        });
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+/*    private void uploadProfileImage() {
+
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Set your profile");
+        progressDialog.setMessage("이미지를 세팅 중입니다...");
+        progressDialog.show();
+
+        //if(imageUri != null) {
+        final StorageReference fileRef = storageProfileRef
+                .child(mAuth.getCurrentUser().getUid() + ".jpg");
+        uploadTask = fileRef.putFile(imageUri);
+        uploadTask.continueWithTask(new Continuation() {
+            @Override
+            public Object then(@NonNull Task task) throws Exception {
+                if(!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                return fileRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if(task.isSuccessful()) {
+                    Uri downloadUrl = task.getResult();
+                    myUri = downloadUrl.toString();
+
+                    HashMap<String, Object> userMap = new HashMap<>();
+                    userMap.put("image", myUri);
+
+                    databaseReference.child(mAuth.getCurrentUser().getUid()).updateChildren(userMap);
+
+                    progressDialog.dismiss();
+                    //finish();
+                }
+            }
+        });
+        //}
+        else {
+            Toast.makeText(this, "이미지가 선택되지 않았습니다", Toast.LENGTH_SHORT).show();
+        }
+    }*/
+
+
+
+
 
 
     private String getTime() {

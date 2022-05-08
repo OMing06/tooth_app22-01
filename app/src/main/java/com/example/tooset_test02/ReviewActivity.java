@@ -49,14 +49,8 @@ public class ReviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_review);
         setTitle("한 줄 후기");
 
-
-
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
-
-
-
-
 
         add_reviewButton = findViewById(R.id.add_reviewButton);
 
