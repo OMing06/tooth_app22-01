@@ -79,10 +79,6 @@ public class ReviewActivity extends AppCompatActivity {
 
     }
 
-    private void showNotLoginDialog() {
-
-    }
-
     @Override
     protected void onStart() {
         super.onStart();

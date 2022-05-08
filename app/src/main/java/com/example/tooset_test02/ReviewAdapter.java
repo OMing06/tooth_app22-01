@@ -52,10 +52,6 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
     }
 
 
-
-
-
-
     class myViewHolder extends RecyclerView.ViewHolder {
 
         TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName;

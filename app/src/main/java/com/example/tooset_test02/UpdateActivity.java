@@ -24,7 +24,9 @@ import com.github.dhaval2404.colorpicker.model.ColorSwatch;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
 import java.util.Calendar;
+import java.util.Date;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -132,6 +134,18 @@ public class UpdateActivity extends AppCompatActivity {
             resdate = getIntent().getStringExtra("resdate");
             color = getIntent().getStringExtra("color");
 
+
+
+            /*Calendar currentTime = Calendar.getInstance();
+            int dayOfMonthDialogV = currentTime.get(Calendar.DAY_OF_MONTH);
+            if(dayOfMonthDialogV == 10) {
+                confirmDialog_cal();
+            }*/
+
+
+
+
+
             //Intent에 데이터 세팅함
             update_name.setText(name);
             update_type.setText(type);
@@ -194,6 +208,65 @@ public class UpdateActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+
+
+
+
+
+
+
+
+/*    void confirmDialog_cal() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(name + "을 계속 사용중인가요?");
+        builder.setMessage("사용중이지 않다면 수정 또는 삭제를 권장합니다. 사용중인가요?");
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                confirmDialog_calDelete();
+            }
+        });
+        builder.create().show();
+    }*/
+
+
+
+
+
+/*    void confirmDialog_calDelete() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //builder.setTitle("Delete " + name);
+        //builder.setMessage("정말 " + name + "을 삭제하시겠습니까?");
+        builder.setTitle(name + "을 삭제할까요?");
+        builder.setMessage("삭제 후 복구되지 않습니다.");
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DBHelper dbHelper = new DBHelper(UpdateActivity.this);
+                dbHelper.deleteOneData(id);
+                finish();
+            }
+        });
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) { }
+        });
+        builder.create().show();
+    }*/
+
+
+
+
+
+
+
+
     public void openColorpicker() {
         int mDefaultColor = 0;
         new MaterialColorPickerDialog
@@ -234,6 +307,8 @@ public class UpdateActivity extends AppCompatActivity {
                         calendar = Calendar.getInstance();
                         calendar.set(year, (month), (dayOfMonth + 6));
                         edit_result2.setText(getDate());
+
+
                     }
                 }
             }); //라디오 끝
