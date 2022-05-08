@@ -62,7 +62,7 @@ public class ReviewAddActivity extends AppCompatActivity {
     ProgressBar progressBar2;
 
     Uri imageUri;
-    String myUri = "";
+    String myUri;
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
@@ -90,8 +90,12 @@ public class ReviewAddActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
         mUserRef = FirebaseDatabase.getInstance().getReference().child("User");
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("Reviews");
-        storageProfileRef = FirebaseStorage.getInstance().getReference().child("Review Pic");
+        //databaseReference = FirebaseDatabase.getInstance().getReference().child("Reviews");
+
+        //child()말고 getReference()에 로케이션 써주기. child()에 쓰면 갱신된다.
+        //storageProfileRef = FirebaseStorage.getInstance().getReference().child("Review Pic");
+        storageProfileRef = FirebaseStorage.getInstance().getReference("Review Pic");
+
 
 
         //이미지 추가 버튼
@@ -147,9 +151,18 @@ public class ReviewAddActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
+                        final String t1 = tv_reviewTitle.getText().toString();
+                        final String t2 = tv_reviewGood.getText().toString();
+                        final String t3 = tv_reviewBad.getText().toString();
+                        if(!(t1.isEmpty() && t2.isEmpty() || t3.isEmpty()) && imageUri != null) {
                         processInsert();
                         Intent intent = new Intent(ReviewAddActivity.this, ReviewActivity.class);
-                        startActivity(intent);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(ReviewAddActivity.this, "내용을 채워주세요.", Toast.LENGTH_LONG).show();
+
+                        }
                     }
                 });
         builder.create().show();
@@ -175,6 +188,8 @@ public class ReviewAddActivity extends AppCompatActivity {
     }
 
     private void processInsert() {
+
+
         final StorageReference fileRef = storageProfileRef
                 .child(mAuth.getCurrentUser().getUid() + ".jpg");
         uploadTask = fileRef.putFile(imageUri);
@@ -198,17 +213,10 @@ public class ReviewAddActivity extends AppCompatActivity {
                     map.put("good_review", tv_reviewGood.getText().toString());
                     map.put("bad_review", tv_reviewBad.getText().toString());
                     map.put("reviewUserName", userNameV);
-                    //map.put("imageUrl", databaseReference.push().getKey());
                     map.put("now_date",getTime());
-
-
-
                     Uri downloadUrl = task.getResult();
                     myUri = downloadUrl.toString();
-
-                    map.put("imageUrl", downloadUrl.toString());
-
-                    //databaseReference.child(mAuth.getCurrentUser().getUid()).updateChildren(map);
+                    map.put("imageUrl", myUri);
 
                     FirebaseDatabase.getInstance().getReference().child("Reviews").push()
                             .setValue(map)

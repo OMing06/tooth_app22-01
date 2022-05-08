@@ -1,5 +1,7 @@
 package com.example.tooset_test02;
 
+import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -24,9 +26,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAdapter.myViewHolder> {
 
@@ -36,8 +41,11 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
      *
      * @param options
      */
+
+
     public ReviewAdapter(@NonNull FirebaseRecyclerOptions<ReviewModel> options) {
         super(options);
+        //this.context = context;
     }
 
     @Override
@@ -47,6 +55,12 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         holder.tv_review_bad.setText(model.getBad_review());
         holder.tv_review_userName.setText(model.getReviewUserName());
         holder.tv_now.setText(model.getNow_date());
+        //holder.iv_review_image.setImageResource(model.getImageUrl());
+
+        String imageUrl = null;
+        imageUrl=model.getImageUrl();
+        //Picasso.get().load(imageUrl).error(R.drawable.no_picture_image).into(holder.iv_review_image);
+        Glide.with(holder.itemView.getContext()).load(imageUrl).error(R.drawable.no_picture_image).into(holder.iv_review_image);
 
     }
 
