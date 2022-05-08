@@ -49,6 +49,12 @@
                 android:layout_margin="5dp"
                 android:text="불호" />
 
+            <TextView
+                android:id="@+id/tv_now"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

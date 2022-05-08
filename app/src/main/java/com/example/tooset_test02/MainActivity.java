@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -79,8 +80,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
-        }
 
+
+
+        }
 
         setTitle(":0");
 
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         review_button = findViewById(R.id.review_button);
         faq_button = findViewById(R.id.faq_button);
         user_button = findViewById(R.id.user_button);
+
 
 
         add_button.setOnClickListener(new View.OnClickListener() {

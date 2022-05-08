@@ -5,10 +5,12 @@ import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +24,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAdapter.myViewHolder> {
 
@@ -41,6 +46,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         holder.tv_review_good.setText(model.getGood_review());
         holder.tv_review_bad.setText(model.getBad_review());
         holder.tv_review_userName.setText(model.getReviewUserName());
+        holder.tv_now.setText(model.getNow_date());
 
     }
 
@@ -54,7 +60,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName;
+        TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName, tv_now;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +69,9 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
             tv_review_good = itemView.findViewById(R.id.tv_review_good);
             tv_review_bad = itemView.findViewById(R.id.tv_review_bad);
             tv_review_userName = itemView.findViewById(R.id.tv_review_userName);
+            tv_now = itemView.findViewById(R.id.tv_now);
         }
     }
+
+
 }

@@ -30,13 +30,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ReviewAddActivity extends AppCompatActivity {
 
     RecyclerView reviewRecyclerView;
-    TextView tv_reviewTitle, tv_reviewGood, tv_reviewBad, tv_userName;
+    TextView tv_reviewTitle, tv_reviewGood, tv_reviewBad;
     Button review_add_button;
 
     FirebaseAuth mAuth;
@@ -55,8 +60,6 @@ public class ReviewAddActivity extends AppCompatActivity {
         tv_reviewBad = findViewById(R.id.tv_reviewBad);
         review_add_button = findViewById(R.id.review_add_button);
 
-        tv_userName = findViewById(R.id.tv_userName);
-
         mAuth = FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
         mUserRef = FirebaseDatabase.getInstance().getReference().child("User");
@@ -69,6 +72,11 @@ public class ReviewAddActivity extends AppCompatActivity {
                 waringDialog();
             }
         });
+
+
+
+
+
     }
 
     @Override
@@ -79,7 +87,6 @@ public class ReviewAddActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()) {
                     userNameV=snapshot.child("name").getValue().toString();
-                    tv_userName.setText(userNameV);
                 }
             }
 
@@ -119,8 +126,8 @@ public class ReviewAddActivity extends AppCompatActivity {
         map.put("title", tv_reviewTitle.getText().toString());
         map.put("good_review", tv_reviewGood.getText().toString());
         map.put("bad_review", tv_reviewBad.getText().toString());
-        map.put("reviewUserName", tv_userName.getText().toString());
-
+        map.put("reviewUserName", userNameV);
+        map.put("now_date",getTime());
 
 
         FirebaseDatabase.getInstance().getReference().child("Reviews").push()
@@ -131,7 +138,6 @@ public class ReviewAddActivity extends AppCompatActivity {
                         tv_reviewTitle.setText("");
                         tv_reviewGood.setText("");
                         tv_reviewBad.setText("");
-                        tv_userName.setText("");
                         Toast.makeText(getApplicationContext(), "리뷰 작성 완료",
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -143,4 +149,13 @@ public class ReviewAddActivity extends AppCompatActivity {
             }
         });
     }
+
+    private String getTime() {
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd a KK:mm");
+        String getTime = dateFormat.format(date);
+        return getTime;
+    }
+
 }

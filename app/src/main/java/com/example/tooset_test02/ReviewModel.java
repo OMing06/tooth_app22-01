@@ -5,6 +5,7 @@ public class ReviewModel {
     String title;
     String good_review;
     String bad_review;
+    String now_date;
 
     String reviewUserName;
 
@@ -12,11 +13,12 @@ public class ReviewModel {
 
     }
 
-    public ReviewModel(String title, String good_review, String bad_review, String reviewUserName) {
+    public ReviewModel(String title, String good_review, String bad_review, String reviewUserName, String now_date) {
         this.title = title;
         this.good_review = good_review;
         this.bad_review = bad_review;
         this.reviewUserName = reviewUserName;
+        this.now_date = now_date;
         //this.reviewUrl = reviewUrl;
     }
 
@@ -50,6 +52,14 @@ public class ReviewModel {
 
     public void setReviewUserName(String reviewUserName) {
         this.reviewUserName = reviewUserName;
+    }
+
+    public String getNow_date() {
+        return now_date;
+    }
+
+    public void setNow_date(String now_date) {
+        this.now_date = now_date;
     }
 
 
