@@ -71,7 +71,6 @@ public class ReviewAddActivity extends AppCompatActivity {
     StorageReference storageProfileRef;
 
     String userNameV;
-    ReviewModel reviewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,8 +102,6 @@ public class ReviewAddActivity extends AppCompatActivity {
             }
         });
 
-
-
         //업로드 버튼
         review_add_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,7 +112,6 @@ public class ReviewAddActivity extends AppCompatActivity {
 
 
     }
-
 
     @Override
     protected void onStart() { //유저 이름 찾아오기
@@ -134,8 +130,6 @@ public class ReviewAddActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     private void waringDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -161,8 +155,6 @@ public class ReviewAddActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-
-
     //선택한 사진 가져오기
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -182,19 +174,7 @@ public class ReviewAddActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(contentResolver.getType(mUri));
     }
 
-
-
-
-
-
-
     private void processInsert() {
-
-
-
-
-
-
         final StorageReference fileRef = storageProfileRef
                 .child(mAuth.getCurrentUser().getUid() + ".jpg");
         uploadTask = fileRef.putFile(imageUri);
@@ -223,17 +203,12 @@ public class ReviewAddActivity extends AppCompatActivity {
 
 
 
-
-
-
                     Uri downloadUrl = task.getResult();
                     myUri = downloadUrl.toString();
 
                     map.put("imageUrl", downloadUrl.toString());
 
                     //databaseReference.child(mAuth.getCurrentUser().getUid()).updateChildren(map);
-
-
 
                     FirebaseDatabase.getInstance().getReference().child("Reviews").push()
                             .setValue(map)
@@ -255,76 +230,12 @@ public class ReviewAddActivity extends AppCompatActivity {
                         }
                     });
 
-
-
-
-
                 }
             }
         });
-
-
-
-
-
-
-
 
 
     }
-
-
-
-
-
-
-
-/*    private void uploadProfileImage() {
-
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("Set your profile");
-        progressDialog.setMessage("이미지를 세팅 중입니다...");
-        progressDialog.show();
-
-        //if(imageUri != null) {
-        final StorageReference fileRef = storageProfileRef
-                .child(mAuth.getCurrentUser().getUid() + ".jpg");
-        uploadTask = fileRef.putFile(imageUri);
-        uploadTask.continueWithTask(new Continuation() {
-            @Override
-            public Object then(@NonNull Task task) throws Exception {
-                if(!task.isSuccessful()) {
-                    throw task.getException();
-                }
-
-                return fileRef.getDownloadUrl();
-            }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if(task.isSuccessful()) {
-                    Uri downloadUrl = task.getResult();
-                    myUri = downloadUrl.toString();
-
-                    HashMap<String, Object> userMap = new HashMap<>();
-                    userMap.put("image", myUri);
-
-                    databaseReference.child(mAuth.getCurrentUser().getUid()).updateChildren(userMap);
-
-                    progressDialog.dismiss();
-                    //finish();
-                }
-            }
-        });
-        //}
-        else {
-            Toast.makeText(this, "이미지가 선택되지 않았습니다", Toast.LENGTH_SHORT).show();
-        }
-    }*/
-
-
-
-
 
 
     private String getTime() {
@@ -342,5 +253,4 @@ public class ReviewAddActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
     }
-
 }
