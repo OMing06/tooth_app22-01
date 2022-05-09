@@ -10,6 +10,7 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -34,9 +35,13 @@ public class TemHumActivity extends AppCompatActivity {
     ImageView img_water;
     TextView tv_tem, tv_hum;
     //Button on_btn, off_btn, bt_btn;
-    Button bt_btn;
+    Button bt_btn, shared_btn;
     Switch switch_onOff, switch_auto;
     LinearLayout gradLayout;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String SWITCH_AUTO = "switchAuto";
+    private boolean switchOnOff, swAuto;
 
     BluetoothAdapter bluetoothAdapter;
     UUID uuid;
@@ -74,6 +79,7 @@ public class TemHumActivity extends AppCompatActivity {
         bt_btn = findViewById(R.id.bt_btn);
         switch_auto = findViewById(R.id.switch_auto);
         gradLayout = findViewById(R.id.gradLayout);
+        shared_btn = findViewById(R.id.shared_btn);
 
         /*on_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +97,13 @@ public class TemHumActivity extends AppCompatActivity {
             }
         });*/
 
+
+        shared_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveData();
+            }
+        });
 
         switch_onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -111,11 +124,14 @@ public class TemHumActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked == true) { //true면
                     Toast.makeText(TemHumActivity.this, "Auto 모드로 전환합니다.", Toast.LENGTH_SHORT).show();
-                    receiveData();
+                    //sendData("3");
+
+                    swAuto = true;receiveData();
 
                 } else {
                     Toast.makeText(TemHumActivity.this, "Auto 모드를 종료합니다.", Toast.LENGTH_SHORT).show();
                     sendData("2");
+                    swAuto = true;
                 }
             }
         });
@@ -156,7 +172,33 @@ public class TemHumActivity extends AppCompatActivity {
             }
         }
 
+        //loadData();
+        //updateViews();
+
     } //onCreate 끝
+
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor =sharedPreferences.edit();
+        editor.putBoolean(SWITCH_AUTO, switch_auto.isChecked());
+
+        editor.apply();
+
+        Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        switchOnOff = sharedPreferences.getBoolean(SWITCH_AUTO, false);
+    }
+
+    private void updateViews() {
+        switch_auto.setChecked(switchOnOff);
+    }
+
+
+
+
 
     private void selectBluetoothDevice() {
         devices = bluetoothAdapter.getBondedDevices();
@@ -267,11 +309,16 @@ public class TemHumActivity extends AppCompatActivity {
                                             humi=Integer.parseInt(array[1]);
                                             temp=Integer.parseInt(array[0]);
 
-                                            sendData("3");
+                                            //sendData("3");
+
+                                            if(swAuto = true) {
+                                                sendData("3");
+                                            }
 
 
 
-                                            if(humi > 57) {
+
+                                            if(humi > 59) {
                                                 img_water.setImageResource(R.drawable.humidity2);
                                                 gradLayout.setBackgroundResource(R.drawable.bg_gradient2);
                                             }
