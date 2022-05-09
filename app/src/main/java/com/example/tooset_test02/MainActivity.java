@@ -18,6 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.util.ui.fieldvalidators.EmailFieldValidator;
+import com.firebase.ui.auth.viewmodel.email.EmailLinkSignInHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -57,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
 
         if(user == null) { //로그인 돼 있지 않으면
             intentFlagActivity(LoginActivity.class);
-        } else { //로그인하면
+        } else if(!user.isEmailVerified()){
+            intentFlagActivity(EmailVerifyActivity.class);
+        }
+        else { //로그인하면
             DocumentReference docRef = db.collection("users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override

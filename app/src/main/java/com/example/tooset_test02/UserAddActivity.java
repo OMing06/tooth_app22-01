@@ -159,7 +159,7 @@ public class UserAddActivity extends AppCompatActivity {
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Set your profile");
-        progressDialog.setMessage("이미지를 세팅 중입니다...");
+        progressDialog.setMessage("프로필을 설정 중입니다...");
         progressDialog.show();
 
         //if(imageUri != null) {
@@ -188,6 +188,7 @@ public class UserAddActivity extends AppCompatActivity {
                         databaseReference.child(mAuth.getCurrentUser().getUid()).updateChildren(userMap);
 
                         progressDialog.dismiss();
+                        intentFlagActivity(MainActivity.class);
                         //finish();
                     }
                 }
@@ -204,6 +205,12 @@ public class UserAddActivity extends AppCompatActivity {
         // intent.setType("image/* video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
+    }
+
+    private void intentFlagActivity(Class c) {
+        Intent intent = new Intent(this, c);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 }

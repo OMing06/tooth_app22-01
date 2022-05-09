@@ -1,5 +1,7 @@
 package com.example.tooset_test02;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
+import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -66,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
 
     // When initializing your Activity, check to see if the user is currently signed in.
     @Override
-    public void onStart() {
+    public void onStart() { //로그인돼있는지 확인
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -108,6 +112,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
     Intent intent = getIntent();
+
+
+
+
+
 
     @Override
     public void onBackPressed() {

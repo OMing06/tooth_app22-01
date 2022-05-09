@@ -2,17 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.tooset_test02">
-
-
     <!-- 블루투스 권한 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <!-- 위치 권한 -->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- 위치 권한 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <!-- 인터넷 권한 -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- 갤러리 접근 권한 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 인터넷 권한 -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 갤러리 접근 권한 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -24,31 +19,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tooset_test02">
         <activity
+            android:name=".EmailVerifyActivity"
+            android:exported="true" />
+        <activity
             android:name=".ReviewAddActivity"
             android:exported="true"
             android:label="Review Page"
-            android:parentActivityName=".ReviewActivity"
-            />
+            android:parentActivityName=".ReviewActivity" />
         <activity
             android:name=".UserAddActivity"
-            android:label="Profile"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Profile" />
         <activity
             android:name=".PasswordResetActivity"
             android:exported="true"
             android:label="Password Reset Page"
-            android:parentActivityName=".LoginActivity"
-            />
+            android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true"
             android:label="Login"
-            android:parentActivityName=".MainActivity"
-            />
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".JoinActivity"
-            android:label="Join"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Join" />
         <activity
             android:name=".FaqActivity"
             android:exported="false"
@@ -82,8 +77,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>
