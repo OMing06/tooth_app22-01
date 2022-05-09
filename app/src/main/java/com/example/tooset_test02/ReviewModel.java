@@ -9,18 +9,21 @@ public class ReviewModel {
     private String imageUrl;
     private String reviewUserName;
 
+    private float rating;
+
     public ReviewModel() {
 
     }
 
     public ReviewModel(String title, String good_review, String bad_review,
-                       String reviewUserName, String now_date, String imageUrl) {
+                       String reviewUserName, String now_date, String imageUrl, float rating) {
         this.title = title;
         this.good_review = good_review;
         this.bad_review = bad_review;
         this.reviewUserName = reviewUserName;
         this.now_date = now_date;
         this.imageUrl = imageUrl;
+        this.rating = rating;
     }
 
     public String getTitle() {
@@ -69,6 +72,14 @@ public class ReviewModel {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
 

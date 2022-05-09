@@ -55,6 +55,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         holder.tv_review_bad.setText(model.getBad_review());
         holder.tv_review_userName.setText(model.getReviewUserName());
         holder.tv_now.setText(model.getNow_date());
+        holder.rv_review_ratingBar.setRating(model.getRating());
         //holder.iv_review_image.setImageResource(model.getImageUrl());
 
         String imageUrl = null;
@@ -76,6 +77,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
 
         TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName, tv_now;
         ImageView iv_review_image;
+        RatingBar rv_review_ratingBar;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +87,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
             tv_review_bad = itemView.findViewById(R.id.tv_review_bad);
             tv_review_userName = itemView.findViewById(R.id.tv_review_userName);
             iv_review_image = itemView.findViewById(R.id.iv_review_image);
+            rv_review_ratingBar = itemView.findViewById(R.id.rv_review_ratingBar);
             tv_now = itemView.findViewById(R.id.tv_now);
         }
     }

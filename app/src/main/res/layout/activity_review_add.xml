@@ -50,6 +50,16 @@
         android:layout_height="wrap_content"
         android:text="확인" />
 
+    <RatingBar
+        android:id="@+id/rv_ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="0.5"
+        tools:ignore="SpeakableTextPresentCheck" />
+
     <ProgressBar
         android:id="@+id/progressBar2"
         style="?android:attr/progressBarStyle"

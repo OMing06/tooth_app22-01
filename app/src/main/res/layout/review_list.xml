@@ -61,6 +61,16 @@
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/baseline_add_a_photo_24" />
 
+            <RatingBar
+                android:id="@+id/rv_review_ratingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="3"
+                android:stepSize="0.5"
+                tools:ignore="SpeakableTextPresentCheck" />
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

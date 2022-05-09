@@ -60,6 +60,7 @@ public class ReviewAddActivity extends AppCompatActivity {
     Button review_add_button, review_addImage_button;
     ImageView iv_reviewImage;
     ProgressBar progressBar2;
+    RatingBar rv_ratingBar;
 
     Uri imageUri;
     String myUri;
@@ -71,6 +72,7 @@ public class ReviewAddActivity extends AppCompatActivity {
     StorageReference storageProfileRef;
 
     String userNameV;
+    float rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +86,7 @@ public class ReviewAddActivity extends AppCompatActivity {
         review_addImage_button = findViewById(R.id.review_addImage_button);
         iv_reviewImage = findViewById(R.id.iv_reviewImage);
         progressBar2 = findViewById(R.id.progressBar2);
+        rv_ratingBar = findViewById(R.id.rv_ratingBar);
 
         progressBar2.setVisibility(View.INVISIBLE);
 
@@ -155,6 +158,7 @@ public class ReviewAddActivity extends AppCompatActivity {
                         final String t1 = tv_reviewTitle.getText().toString();
                         final String t2 = tv_reviewGood.getText().toString();
                         final String t3 = tv_reviewBad.getText().toString();
+                        final float rating = rv_ratingBar.getRating();
                         if(!(t1.isEmpty() && t2.isEmpty() || t3.isEmpty()) && imageUri != null) {
                         processInsert();
                         Intent intent = new Intent(ReviewAddActivity.this, ReviewActivity.class);
@@ -188,8 +192,6 @@ public class ReviewAddActivity extends AppCompatActivity {
     }
 
     private void processInsert() {
-
-
         final StorageReference fileRef = storageProfileRef
                 .child(mAuth.getCurrentUser().getUid() + ".jpg");
         uploadTask = fileRef.putFile(imageUri);
@@ -214,6 +216,7 @@ public class ReviewAddActivity extends AppCompatActivity {
                     map.put("bad_review", tv_reviewBad.getText().toString());
                     map.put("reviewUserName", userNameV);
                     map.put("now_date",getTime());
+                    map.put("rating", rv_ratingBar.getRating());
                     Uri downloadUrl = task.getResult();
                     myUri = downloadUrl.toString();
                     map.put("imageUrl", myUri);
@@ -226,6 +229,7 @@ public class ReviewAddActivity extends AppCompatActivity {
                                     tv_reviewTitle.setText("");
                                     tv_reviewGood.setText("");
                                     tv_reviewBad.setText("");
+                                    rv_ratingBar.setRating(rating);
                                     //iv_reviewImage.setImageResource(myUri);
                                     Toast.makeText(getApplicationContext(), "리뷰 작성 완료",
                                             Toast.LENGTH_SHORT).show();
