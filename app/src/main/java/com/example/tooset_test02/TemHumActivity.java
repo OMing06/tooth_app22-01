@@ -106,19 +106,19 @@ public class TemHumActivity extends AppCompatActivity {
         });
 
 
-        /*switch_auto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switch_auto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked == true) { //true면
                     Toast.makeText(TemHumActivity.this, "Auto 모드로 전환합니다.", Toast.LENGTH_SHORT).show();
-                    sendData("3");
+                    receiveData();
 
                 } else {
                     Toast.makeText(TemHumActivity.this, "Auto 모드를 종료합니다.", Toast.LENGTH_SHORT).show();
                     sendData("2");
                 }
             }
-        });*/
+        });
 
         bt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,24 +267,7 @@ public class TemHumActivity extends AppCompatActivity {
                                             humi=Integer.parseInt(array[1]);
                                             temp=Integer.parseInt(array[0]);
 
-
-
-                                            switch_auto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                @Override
-                                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                    if(isChecked == true) { //true면
-                                                        Toast.makeText(TemHumActivity.this, "Auto 모드로 전환합니다.", Toast.LENGTH_SHORT).show();
-                                                        sendData("3");
-
-                                                    } else {
-                                                        Toast.makeText(TemHumActivity.this, "Auto 모드를 종료합니다.", Toast.LENGTH_SHORT).show();
-                                                        sendData("2");
-                                                    }
-                                                }
-                                            });
-
-
-
+                                            sendData("3");
 
 
 
