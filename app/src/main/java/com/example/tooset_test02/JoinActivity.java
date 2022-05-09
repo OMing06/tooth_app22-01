@@ -88,8 +88,8 @@ public class JoinActivity extends AppCompatActivity {
                                     if(task.isSuccessful()) {
                                         //Intent intent = new Intent(JoinActivity.this, UserAddActivity.class);
                                         //startActivity(intent);
-                                        intentFlagActivity(EmailVerifyActivity.class);
-                                        Toast.makeText(JoinActivity.this, "회원가입 성공. 이메일 인증을 진행해주세요. 메일함을 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                        intentFlagActivity(UserAddActivity.class);
+                                        Toast.makeText(JoinActivity.this, "회원가입 성공. 이메일 인증을 위해 메일함을 확인해주세요.", Toast.LENGTH_SHORT).show();
                                         finish();
                                     } //if(task.isSuccessful())
                                     else {
