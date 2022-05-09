@@ -2,10 +2,12 @@ package com.example.tooset_test02;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -57,7 +59,7 @@ public class UserAddActivity extends AppCompatActivity {
     private static final String TAG = "UserAddActivity";
 
     EditText write_nickname;
-    Button profile_add_button;
+    Button profile_add_button, revokeUser_button;
     CircleImageView profile_image;
     FloatingActionButton imagePick_button;
     ProgressBar progressBar;
@@ -81,6 +83,7 @@ public class UserAddActivity extends AppCompatActivity {
         profile_image = findViewById(R.id.profile_image);
         imagePick_button = findViewById(R.id.imagePick_button);
         progressBar = findViewById(R.id.progressBar);
+        revokeUser_button = findViewById(R.id.revokeUser_button);
 
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -100,6 +103,13 @@ public class UserAddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 validateAndsave();
                 //uploadProfileImage();
+            }
+        });
+
+        revokeUser_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reVokeUser_dialog1();
             }
         });
 
@@ -206,6 +216,54 @@ public class UserAddActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
     }
+
+    private void revokeUser() {
+        mAuth.getCurrentUser().delete();
+    }
+
+
+    void reVokeUser_dialog1() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //builder.setTitle("Update " + name);
+        //builder.setMessage(name + "을 수정하시겠습니까?");
+        builder.setTitle("정말 탈퇴하시겠습니까?");
+        builder.setMessage("탈퇴 후 복구되지 않습니다.");
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                reVokeUser_dialog2();
+            }
+        });
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) { }
+        });
+        builder.create().show();
+    }
+
+
+    void reVokeUser_dialog2() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //builder.setTitle("Update " + name);
+        //builder.setMessage(name + "을 수정하시겠습니까?");
+        builder.setTitle("다시 한 번 생각해보세요.");
+        builder.setMessage("탈퇴 후 복구되지 않습니다.");
+        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                revokeUser();
+                Toast.makeText(UserAddActivity.this, "bye", Toast.LENGTH_SHORT).show();
+                intentFlagActivity(LoginActivity.class);
+            }
+        });
+        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) { }
+        });
+        builder.create().show();
+    }
+
+
 
     private void intentFlagActivity(Class c) {
         Intent intent = new Intent(this, c);

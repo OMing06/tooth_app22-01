@@ -73,4 +73,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|right"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/revokeUser_button"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="탈퇴하기" />
+    </LinearLayout>
+
 </LinearLayout>
