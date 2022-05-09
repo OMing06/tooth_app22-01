@@ -35,7 +35,7 @@ public class TemHumActivity extends AppCompatActivity {
     ImageView img_water;
     TextView tv_tem, tv_hum;
     //Button on_btn, off_btn, bt_btn;
-    Button bt_btn, shared_btn;
+    Button bt_btn;
     Switch switch_onOff, switch_auto;
     LinearLayout gradLayout;
 
@@ -79,7 +79,6 @@ public class TemHumActivity extends AppCompatActivity {
         bt_btn = findViewById(R.id.bt_btn);
         switch_auto = findViewById(R.id.switch_auto);
         gradLayout = findViewById(R.id.gradLayout);
-        shared_btn = findViewById(R.id.shared_btn);
 
         /*on_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,14 +95,6 @@ public class TemHumActivity extends AppCompatActivity {
                 sendData("2");
             }
         });*/
-
-
-        shared_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveData();
-            }
-        });
 
         switch_onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -122,16 +113,11 @@ public class TemHumActivity extends AppCompatActivity {
         switch_auto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked == true) { //true면
-                    Toast.makeText(TemHumActivity.this, "Auto 모드로 전환합니다.", Toast.LENGTH_SHORT).show();
-                    //sendData("3");
-
-                    swAuto = true;receiveData();
-
-                } else {
+                if(isChecked == false) { //true면
                     Toast.makeText(TemHumActivity.this, "Auto 모드를 종료합니다.", Toast.LENGTH_SHORT).show();
                     sendData("2");
-                    swAuto = true;
+                } else {
+                    Toast.makeText(TemHumActivity.this, "Auto 모드로 전환합니다.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -172,29 +158,7 @@ public class TemHumActivity extends AppCompatActivity {
             }
         }
 
-        //loadData();
-        //updateViews();
-
     } //onCreate 끝
-
-    private void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor =sharedPreferences.edit();
-        editor.putBoolean(SWITCH_AUTO, switch_auto.isChecked());
-
-        editor.apply();
-
-        Toast.makeText(this, "저장되었습니다.", Toast.LENGTH_SHORT).show();
-    }
-
-    private void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        switchOnOff = sharedPreferences.getBoolean(SWITCH_AUTO, false);
-    }
-
-    private void updateViews() {
-        switch_auto.setChecked(switchOnOff);
-    }
 
 
 
@@ -300,6 +264,9 @@ public class TemHumActivity extends AppCompatActivity {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            if(switch_auto.isChecked() == true) {
+                                                sendData("3");
+                                            }
 
                                             array = message.split(",", 3);
 
@@ -311,9 +278,7 @@ public class TemHumActivity extends AppCompatActivity {
 
                                             //sendData("3");
 
-                                            if(swAuto = true) {
-                                                sendData("3");
-                                            }
+
 
 
 
