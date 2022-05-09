@@ -14,8 +14,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +33,9 @@ public class TemHumActivity extends AppCompatActivity {
 
     ImageView img_water;
     TextView tv_tem, tv_hum;
-    Button on_btn, off_btn, bt_btn;
+    //Button on_btn, off_btn, bt_btn;
+    Button bt_btn;
+    Switch switch_onOff, switch_auto;
     LinearLayout gradLayout;
 
     BluetoothAdapter bluetoothAdapter;
@@ -64,12 +68,14 @@ public class TemHumActivity extends AppCompatActivity {
         //img_water2 = findViewById(R.id.img_water2);
         tv_tem = findViewById(R.id.tv_tem);
         tv_hum = findViewById(R.id.tv_hum);
-        on_btn = findViewById(R.id.on_btn);
-        off_btn = findViewById(R.id.off_btn);
+        //on_btn = findViewById(R.id.on_btn);
+        //off_btn = findViewById(R.id.off_btn);
+        switch_onOff = findViewById(R.id.switch_onOff);
         bt_btn = findViewById(R.id.bt_btn);
+        switch_auto = findViewById(R.id.switch_auto);
         gradLayout = findViewById(R.id.gradLayout);
 
-        on_btn.setOnClickListener(new View.OnClickListener() {
+        /*on_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(TemHumActivity.this, "팬을 켭니다.", Toast.LENGTH_SHORT).show();
@@ -83,7 +89,36 @@ public class TemHumActivity extends AppCompatActivity {
                 Toast.makeText(TemHumActivity.this, "팬 작동을 종료합니다.", Toast.LENGTH_SHORT).show();
                 sendData("2");
             }
+        });*/
+
+
+        switch_onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    Toast.makeText(TemHumActivity.this, "팬을 켭니다.", Toast.LENGTH_SHORT).show();
+                    sendData("1");
+                } else {
+                    Toast.makeText(TemHumActivity.this, "팬 작동을 종료합니다.", Toast.LENGTH_SHORT).show();
+                    sendData("2");
+                }
+            }
         });
+
+
+        /*switch_auto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == true) { //true면
+                    Toast.makeText(TemHumActivity.this, "Auto 모드로 전환합니다.", Toast.LENGTH_SHORT).show();
+                    sendData("3");
+
+                } else {
+                    Toast.makeText(TemHumActivity.this, "Auto 모드를 종료합니다.", Toast.LENGTH_SHORT).show();
+                    sendData("2");
+                }
+            }
+        });*/
 
         bt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +126,6 @@ public class TemHumActivity extends AppCompatActivity {
                 selectBluetoothDevice();
             }
         });
-
 
         //위치권한 허용 코드. 없으면 나중에 주변장치 검색이 되지 않는다.
         String[] permission_list = {
@@ -226,11 +260,33 @@ public class TemHumActivity extends AppCompatActivity {
                                         public void run() {
 
                                             array = message.split(",", 3);
-                                            tv_hum.setText(array[0] + "%");
-                                            tv_tem.setText(array[1] + "ºC");
 
-                                            humi=Integer.parseInt(array[0]);
-                                            temp=Integer.parseInt(array[1]);
+                                            tv_hum.setText(array[1] + "%");
+                                            tv_tem.setText(array[0] + "ºC");
+
+                                            humi=Integer.parseInt(array[1]);
+                                            temp=Integer.parseInt(array[0]);
+
+
+
+                                            switch_auto.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                                @Override
+                                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                    if(isChecked == true) { //true면
+                                                        Toast.makeText(TemHumActivity.this, "Auto 모드로 전환합니다.", Toast.LENGTH_SHORT).show();
+                                                        sendData("3");
+
+                                                    } else {
+                                                        Toast.makeText(TemHumActivity.this, "Auto 모드를 종료합니다.", Toast.LENGTH_SHORT).show();
+                                                        sendData("2");
+                                                    }
+                                                }
+                                            });
+
+
+
+
+
 
                                             if(humi > 57) {
                                                 img_water.setImageResource(R.drawable.humidity2);

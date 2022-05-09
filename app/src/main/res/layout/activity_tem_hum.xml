@@ -63,24 +63,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp">
+            android:layout_marginRight="30dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/on_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
+            <Switch
+                android:id="@+id/switch_onOff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ON" />
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:switchPadding="30dp"
+                android:text="ON/OFF" />
 
-            <Button
-                android:id="@+id/off_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:layout_weight="1"
-                android:text="OFF" />
-
+            <Switch
+                android:id="@+id/switch_auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:switchPadding="30dp"
+                android:text="AUTO" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,6 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Bluetooth" />
+
         </LinearLayout>
 
     </LinearLayout>
