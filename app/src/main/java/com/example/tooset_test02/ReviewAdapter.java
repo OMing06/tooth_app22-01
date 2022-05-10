@@ -1,13 +1,20 @@
 package com.example.tooset_test02;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -28,6 +35,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
      * @param options
      */
 
+    private Context mContext;
 
 
     public ReviewAdapter(@NonNull FirebaseRecyclerOptions<ReviewModel> options) {
@@ -45,9 +53,22 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         //holder.reviewCardView.setBackgroundColor(Color.parseColor(model.getColorRandom()));
 
         String imageUrl = null;
-        imageUrl=model.getImageUrl();
+        imageUrl = model.getImageUrl();
         //Picasso.get().load(imageUrl).error(R.drawable.no_picture_image).into(holder.iv_review_image);
         Glide.with(holder.itemView.getContext()).load(imageUrl).error(R.drawable.no_picture_image).into(holder.iv_review_image);
+
+        holder.mainLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext = v.getContext();
+                Intent intent = new Intent(mContext, ReviewDetail.class);
+                intent.putExtra("title", String.valueOf(model.getTitle()));
+                intent.putExtra("good_review", String.valueOf(model.getGood_review()));
+                intent.putExtra("bad_review", String.valueOf(model.getBad_review()));
+
+                mContext.startActivity(intent); //결과값 전달
+            }
+        });
 
     }
 
@@ -66,6 +87,8 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         ImageView iv_review_image;
         RatingBar rv_review_ratingBar;
         CardView reviewCardView;
+        CheckBox checkBox;
+        LinearLayout mainLayout2;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,7 +101,8 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
             rv_review_ratingBar = itemView.findViewById(R.id.rv_review_ratingBar);
             tv_now = itemView.findViewById(R.id.tv_now);
             reviewCardView = itemView.findViewById(R.id.reviewCardView);
+            mainLayout2 = itemView.findViewById(R.id.mainLayout2);
+
         }
     }
-
 }

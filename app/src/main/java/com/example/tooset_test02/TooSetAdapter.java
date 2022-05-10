@@ -36,7 +36,6 @@ public class TooSetAdapter extends RecyclerView.Adapter<TooSetAdapter.ViewHolder
         this.tooset_date = tooset_date;
         this.tooset_color = tooset_color;
         this.tooset_resdate = tooset_resdate; //날짜 계산결과
-
     }
 
     @NonNull

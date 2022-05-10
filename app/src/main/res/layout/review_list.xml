@@ -40,7 +40,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:maxLength="140"
+                android:maxLines="2"
+                android:maxWidth="286dp"
+                android:ellipsize="end"
                 android:text="좋았던점" />
 
             <TextView
@@ -48,7 +50,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:maxLength="140"
+                android:maxLines="2"
+                android:maxWidth="286dp"
+                android:ellipsize="end"
                 android:text="불호" />
 
             <TextView
@@ -61,19 +65,18 @@
                 android:id="@+id/iv_review_image"
                 android:layout_width="350dp"
                 android:layout_height="270dp"
-                app:srcCompat="@drawable/baseline_add_a_photo_24"
                 android:scaleType="fitXY"
-                />
+                app:srcCompat="@drawable/baseline_add_a_photo_24" />
 
             <RatingBar
                 android:id="@+id/rv_review_ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:rating="3"
                 android:stepSize="0.5"
-                style="@style/Widget.AppCompat.RatingBar.Small"
                 tools:ignore="SpeakableTextPresentCheck" />
 
         </LinearLayout>

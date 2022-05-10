@@ -8,6 +8,7 @@ public class ReviewModel {
     private String now_date;
     private String imageUrl;
     private String reviewUserName;
+    private int checkBox;
 
     private float rating;
 
@@ -16,7 +17,7 @@ public class ReviewModel {
     }
 
     public ReviewModel(String title, String good_review, String bad_review,
-                       String reviewUserName, String now_date, String imageUrl, float rating) {
+                       String reviewUserName, String now_date, String imageUrl, float rating, int checkBox) {
         this.title = title;
         this.good_review = good_review;
         this.bad_review = bad_review;
@@ -24,6 +25,7 @@ public class ReviewModel {
         this.now_date = now_date;
         this.imageUrl = imageUrl;
         this.rating = rating;
+        this.checkBox = checkBox;
     }
 
     public String getTitle() {
@@ -80,6 +82,14 @@ public class ReviewModel {
 
     public void setRating(float rating) {
         this.rating = rating;
+    }
+
+    public int getCheckBox() {
+        return checkBox;
+    }
+
+    public void setCheckBox(int checkBox) {
+        this.checkBox = checkBox;
     }
 
 
