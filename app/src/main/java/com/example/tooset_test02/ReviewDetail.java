@@ -1,15 +1,21 @@
 package com.example.tooset_test02;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,18 +43,16 @@ public class ReviewDetail extends AppCompatActivity {
 
     TextView tv_rvName, tv_rvDate, tv_rvTitle, tv_rvGood, tv_rvBad;
     ImageView iv_rvImage;
-    Button favoriteBtn;
 
     Uri imageUri;
     String myUri;
 
-    FirebaseAuth mAuth;
-    FirebaseUser mUser;
-    DatabaseReference mUserRef, databaseReference;
-    StorageTask uploadTask;
-    StorageReference storageProfileRef;
+    FirebaseDatabase mDatabase;
+    DatabaseReference mDbRef;
 
-    private DatabaseReference mDatabase;
+    ReviewModel reviewModel;
+
+    String title, good_review, bad_review, now_date, imageUrl, reviewUserName;
 
 
     @Override
@@ -63,30 +67,41 @@ public class ReviewDetail extends AppCompatActivity {
         tv_rvBad = findViewById(R.id.tv_rvBad);
         iv_rvImage = findViewById(R.id.iv_rvImage);
 
-        //reviewDetail();
+        mDatabase = FirebaseDatabase.getInstance();
+        mDbRef = mDatabase.getReference().child("Reviews");
+
+        reviewDetail();
 
     }
 
-    /*private void reviewDetail() {
-        databaseReference.child("Reviews").child(Gname).addValueEventListener(new ValueEventListener() {
+    private void reviewDetail() {
+        mDbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                //각각의 값 받아오기 get어쩌구 함수들은 Together_group_list.class에서 지정한것
-                gintro = group.getGintro();
-                goaltime = group.getGoaltime();
-                gdate = group.getGoalday();
+                for(DataSnapshot ds: snapshot.getChildren()) {
+                    reviewModel = ds.getValue(ReviewModel.class);
 
-                //텍스트뷰에 받아온 문자열 대입하기
-                goaltime_tv.setText(goaltime);
-                gintro_tv.setText(gintro);
-                gdate_tv.setText(gdate);
+                    reviewUserName = reviewModel.getReviewUserName();
+                    now_date = reviewModel.getNow_date();
+                    title = reviewModel.getTitle();
+                    good_review = reviewModel.getGood_review();
+                    bad_review = reviewModel.getBad_review();
+                    imageUrl = reviewModel.getImageUrl();
+
+                    tv_rvName.setText(reviewUserName);
+                    tv_rvDate.setText(now_date);
+                    tv_rvTitle.setText(title);
+                    tv_rvGood.setText(good_review);
+                    tv_rvBad.setText(bad_review);
+                    Glide.with(ReviewDetail.this).load(imageUrl).error(R.drawable.no_picture_image).into(iv_rvImage);
+
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        })
-
-    }*/
+        });
+    }
 }
