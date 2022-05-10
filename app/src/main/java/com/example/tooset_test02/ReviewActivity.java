@@ -2,8 +2,10 @@ package com.example.tooset_test02;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -59,9 +61,13 @@ public class ReviewActivity extends AppCompatActivity {
 
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        //StaggeredGridLayoutManager mLayoutManager = new mLayoutManager(2,1);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
+        //mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
+
+        recyclerView.smoothScrollToPosition(1);
 
 
         FirebaseRecyclerOptions<ReviewModel> options =

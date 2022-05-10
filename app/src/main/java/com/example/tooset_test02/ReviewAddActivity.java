@@ -13,8 +13,12 @@ import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -53,6 +57,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 
 public class ReviewAddActivity extends AppCompatActivity {
 
@@ -61,6 +66,8 @@ public class ReviewAddActivity extends AppCompatActivity {
     ImageView iv_reviewImage;
     ProgressBar progressBar2;
     RatingBar rv_ratingBar;
+
+    TextView tvgnrl;
 
     Uri imageUri;
     String myUri;
@@ -71,7 +78,7 @@ public class ReviewAddActivity extends AppCompatActivity {
     StorageTask uploadTask;
     StorageReference storageProfileRef;
 
-    String userNameV;
+    String userNameV, input;
     float rating;
 
     @Override
@@ -87,6 +94,8 @@ public class ReviewAddActivity extends AppCompatActivity {
         iv_reviewImage = findViewById(R.id.iv_reviewImage);
         progressBar2 = findViewById(R.id.progressBar2);
         rv_ratingBar = findViewById(R.id.rv_ratingBar);
+
+        tvgnrl = findViewById(R.id.tvgnrl);
 
         progressBar2.setVisibility(View.INVISIBLE);
 
@@ -116,6 +125,8 @@ public class ReviewAddActivity extends AppCompatActivity {
                 waringDialog();
             }
         });
+
+        maxText();
 
 
     }
@@ -217,6 +228,7 @@ public class ReviewAddActivity extends AppCompatActivity {
                     map.put("reviewUserName", userNameV);
                     map.put("now_date",getTime());
                     map.put("rating", rv_ratingBar.getRating());
+
                     Uri downloadUrl = task.getResult();
                     myUri = downloadUrl.toString();
                     map.put("imageUrl", myUri);
@@ -265,4 +277,51 @@ public class ReviewAddActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
     }
+
+    private void maxText() {
+
+        tv_reviewGood.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                input = tv_reviewGood.getText().toString();
+                tvgnrl.setText(input.length()+" / 100");
+                maxTextSetButton();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        tv_reviewBad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                input = tv_reviewBad.getText().toString();
+                tvgnrl.setText(input.length() + " / 100");
+                maxTextSetButton();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+    }
+
+    private void maxTextSetButton() {
+        String input = tv_reviewBad.getText().toString();
+        if(input.length() == 100) {
+            review_add_button.setEnabled(false);
+            review_add_button.setBackgroundColor(Color.MAGENTA);
+        } else if(input.length() <= 100) {
+            review_add_button.setEnabled(true);
+            review_add_button.setBackgroundColor(Color.YELLOW);
+        }
+    }
+
+
 }
