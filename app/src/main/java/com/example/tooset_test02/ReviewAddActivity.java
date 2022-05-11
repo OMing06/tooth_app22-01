@@ -104,7 +104,6 @@ public class ReviewAddActivity extends AppCompatActivity {
         mUserRef = FirebaseDatabase.getInstance().getReference().child("User");
         //databaseReference = FirebaseDatabase.getInstance().getReference().child("Reviews");
 
-        //child()말고 getReference()에 로케이션 써주기. child()에 쓰면 갱신된다.
         //storageProfileRef = FirebaseStorage.getInstance().getReference().child("Review Pic");
         storageProfileRef = FirebaseStorage.getInstance().getReference("Review Pic");
 
@@ -203,7 +202,7 @@ public class ReviewAddActivity extends AppCompatActivity {
 
     private void processInsert() {
         final StorageReference fileRef = storageProfileRef
-                .child(mAuth.getCurrentUser().getUid() + ".jpg");
+                .child(System.currentTimeMillis() + getFileExtension(imageUri));
         uploadTask = fileRef.putFile(imageUri);
         uploadTask.continueWithTask(new Continuation() {
             @Override
