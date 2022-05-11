@@ -6,12 +6,14 @@
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/add_a_photo-48px.xml" value="0.1" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/baseline_add_a_photo_24.xml" value="0.1" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/bg_gradient1.xml" value="0.27314814814814814" />
+        <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/color.xml" value="0.23981481481481481" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/humidityxml.xml" value="0.27314814814814814" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/ic_baseline_blur_on_24.xml" value="0.27314814814814814" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/ic_launcher_tooset11_background.xml" value="0.18703703703703703" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/ic_launcher_tooset1_background.xml" value="0.18703703703703703" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/drawable/userxml.xml" value="0.1" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_add.xml" value="0.3515625" />
+        <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_book_mark.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_camera.xml" value="0.1537037037037037" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_email_verify.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_faq.xml" value="0.2957427536231884" />
@@ -21,14 +23,19 @@
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_main.xml" value="0.2957427536231884" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_password_reset.xml" value="0.20244565217391305" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_review.xml" value="0.2957427536231884" />
+<<<<<<< HEAD
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_review_add.xml" value="0.20606884057971014" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_review_detail.xml" value="0.1757852077001013" />
+=======
+        <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_review_add.xml" value="0.33" />
+        <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_review_detail.xml" value="0.22" />
+>>>>>>> 8fc5bc883d9af706e378323f86413822326eac32
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_tem_hum.xml" value="0.33" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_user.xml" value="0.16185410334346503" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/activity_user_add.xml" value="0.14" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/fcm_popup.xml" value="0.33" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/fragment_camera2_basic.xml" value="0.1537037037037037" />
-        <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/review_list.xml" value="0.22" />
+        <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/review_list.xml" value="0.33" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/layout/tooset_list.xml" value="0.16574074074074074" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/menu/review_card_menu.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/owo40/AndroidStudioProjects/tooset_test02/app/src/main/res/menu/review_search_menu.xml" value="0.2851851851851852" />

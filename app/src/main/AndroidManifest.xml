@@ -20,7 +20,8 @@
         android:theme="@style/Theme.Tooset_test02">
         <activity
             android:name=".ReviewDetail"
-            android:exported="true" />
+            android:exported="true"
+            android:parentActivityName=".ReviewActivity" />
         <activity
             android:name=".EmailVerifyActivity"
             android:exported="true" />
