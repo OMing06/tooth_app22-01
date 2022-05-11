@@ -65,6 +65,9 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
                 intent.putExtra("title", String.valueOf(model.getTitle()));
                 intent.putExtra("good_review", String.valueOf(model.getGood_review()));
                 intent.putExtra("bad_review", String.valueOf(model.getBad_review()));
+                intent.putExtra("reviewUserName", String.valueOf(model.getReviewUserName()));
+                intent.putExtra("now_date", String.valueOf(model.getNow_date()));
+                intent.putExtra("imageUrl", String.valueOf(model.getImageUrl()));
 
                 mContext.startActivity(intent); //결과값 전달
             }

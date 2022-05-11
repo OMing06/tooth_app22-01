@@ -81,12 +81,12 @@ public class ReviewDetail extends AppCompatActivity {
                 for(DataSnapshot ds: snapshot.getChildren()) {
                     reviewModel = ds.getValue(ReviewModel.class);
 
-                    reviewUserName = reviewModel.getReviewUserName();
-                    now_date = reviewModel.getNow_date();
-                    title = reviewModel.getTitle();
-                    good_review = reviewModel.getGood_review();
-                    bad_review = reviewModel.getBad_review();
-                    imageUrl = reviewModel.getImageUrl();
+                    reviewUserName = getIntent().getStringExtra("reviewUserName");
+                    now_date = getIntent().getStringExtra("now_date");
+                    title = getIntent().getStringExtra("title");
+                    good_review = getIntent().getStringExtra("good_review");
+                    bad_review = getIntent().getStringExtra("bad_review");
+                    imageUrl = getIntent().getStringExtra("imageUrl");
 
                     tv_rvName.setText(reviewUserName);
                     tv_rvDate.setText(now_date);
