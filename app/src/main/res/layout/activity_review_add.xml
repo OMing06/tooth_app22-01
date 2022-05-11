@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="제목"
+        android:maxLength="50"
         android:inputType="textPersonName"
         android:minHeight="48dp" />
 
@@ -21,22 +22,38 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:ems="10"
+        android:maxLength="100"
         android:hint="좋았던 점을 작성해주세요"
-        android:inputType="textPersonName" />
+        android:inputType="textMultiLine" />
 
     <EditText
         android:id="@+id/tv_reviewBad"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:ems="10"
+        android:maxLength="100"
         android:hint="아쉬운 점이 있나요?"
-        android:inputType="textPersonName" />
+        android:inputType="textMultiLine" />
 
-    <ImageView
-        android:id="@+id/iv_reviewImage"
+    <TextView
+        android:id="@+id/tvgnrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/no_picture_image" />
+        android:text="후기는 각 100자까지만 작성 가능합니다." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/iv_reviewImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/no_picture_image" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/review_addImage_button"
@@ -49,6 +66,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="확인" />
+
+    <RatingBar
+        android:id="@+id/rv_ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="3"
+        android:stepSize="0.5"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ProgressBar
         android:id="@+id/progressBar2"

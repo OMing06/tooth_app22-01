@@ -173,36 +173,36 @@ public class UserAddActivity extends AppCompatActivity {
         progressDialog.show();
 
         //if(imageUri != null) {
-            final StorageReference fileRef = storageProfileRef
-                    .child(mAuth.getCurrentUser().getUid() + ".jpg");
-            uploadTask = fileRef.putFile(imageUri);
-            uploadTask.continueWithTask(new Continuation() {
-                @Override
-                public Object then(@NonNull Task task) throws Exception {
-                    if(!task.isSuccessful()) {
-                        throw task.getException();
-                    }
-
-                    return fileRef.getDownloadUrl();
+        final StorageReference fileRef = storageProfileRef
+                .child(mAuth.getCurrentUser().getUid() + ".jpg");
+        uploadTask = fileRef.putFile(imageUri);
+        uploadTask.continueWithTask(new Continuation() {
+            @Override
+            public Object then(@NonNull Task task) throws Exception {
+                if(!task.isSuccessful()) {
+                    throw task.getException();
                 }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if(task.isSuccessful()) {
-                        Uri downloadUrl = task.getResult();
-                        myUri = downloadUrl.toString();
 
-                        HashMap<String, Object> userMap = new HashMap<>();
-                        userMap.put("image", myUri);
+                return fileRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if(task.isSuccessful()) {
+                    Uri downloadUrl = task.getResult();
+                    myUri = downloadUrl.toString();
 
-                        databaseReference.child(mAuth.getCurrentUser().getUid()).updateChildren(userMap);
+                    HashMap<String, Object> userMap = new HashMap<>();
+                    userMap.put("image", myUri);
 
-                        progressDialog.dismiss();
-                        intentFlagActivity(MainActivity.class);
-                        //finish();
-                    }
+                    databaseReference.child(mAuth.getCurrentUser().getUid()).updateChildren(userMap);
+
+                    progressDialog.dismiss();
+                    intentFlagActivity(MainActivity.class);
+                    //finish();
                 }
-            });
+            }
+        });
         //}
         /*else {
             Toast.makeText(this, "이미지가 선택되지 않았습니다", Toast.LENGTH_SHORT).show();

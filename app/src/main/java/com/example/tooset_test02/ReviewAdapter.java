@@ -1,37 +1,30 @@
 package com.example.tooset_test02;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.Random;
 
 public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAdapter.myViewHolder> {
 
@@ -42,10 +35,11 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
      * @param options
      */
 
+    private Context mContext;
+
 
     public ReviewAdapter(@NonNull FirebaseRecyclerOptions<ReviewModel> options) {
         super(options);
-        //this.context = context;
     }
 
     @Override
@@ -55,14 +49,29 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         holder.tv_review_bad.setText(model.getBad_review());
         holder.tv_review_userName.setText(model.getReviewUserName());
         holder.tv_now.setText(model.getNow_date());
-        //holder.iv_review_image.setImageResource(model.getImageUrl());
+        holder.rv_review_ratingBar.setRating(model.getRating());
+        //holder.reviewCardView.setBackgroundColor(Color.parseColor(model.getColorRandom()));
 
         String imageUrl = null;
-        imageUrl=model.getImageUrl();
+        imageUrl = model.getImageUrl();
         //Picasso.get().load(imageUrl).error(R.drawable.no_picture_image).into(holder.iv_review_image);
         Glide.with(holder.itemView.getContext()).load(imageUrl).error(R.drawable.no_picture_image).into(holder.iv_review_image);
 
+        holder.mainLayout2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext = v.getContext();
+                Intent intent = new Intent(mContext, ReviewDetail.class);
+                intent.putExtra("title", String.valueOf(model.getTitle()));
+                intent.putExtra("good_review", String.valueOf(model.getGood_review()));
+                intent.putExtra("bad_review", String.valueOf(model.getBad_review()));
+
+                mContext.startActivity(intent); //결과값 전달
+            }
+        });
+
     }
+
 
     @NonNull
     @Override
@@ -76,6 +85,10 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
 
         TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName, tv_now;
         ImageView iv_review_image;
+        RatingBar rv_review_ratingBar;
+        CardView reviewCardView;
+        CheckBox checkBox;
+        LinearLayout mainLayout2;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,8 +98,11 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
             tv_review_bad = itemView.findViewById(R.id.tv_review_bad);
             tv_review_userName = itemView.findViewById(R.id.tv_review_userName);
             iv_review_image = itemView.findViewById(R.id.iv_review_image);
+            rv_review_ratingBar = itemView.findViewById(R.id.rv_review_ratingBar);
             tv_now = itemView.findViewById(R.id.tv_now);
+            reviewCardView = itemView.findViewById(R.id.reviewCardView);
+            mainLayout2 = itemView.findViewById(R.id.mainLayout2);
+
         }
     }
-
 }

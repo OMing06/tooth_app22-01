@@ -91,7 +91,6 @@ public class AddActivity extends AppCompatActivity {
                         edit_result.getText().toString().trim(),
                         textViewColor.getText().toString().trim()
                 );
-                finish();
             }
         });
     }

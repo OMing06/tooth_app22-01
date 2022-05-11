@@ -2,11 +2,15 @@ package com.example.tooset_test02;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,7 +51,7 @@ public class ReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
-        setTitle("한 줄 후기");
+        setTitle("한줄은 너무 적고 세 줄은 많고");
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
@@ -57,11 +61,18 @@ public class ReviewActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.reviewRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        WrapContentLinearLayoutManager mLayoutManager = new WrapContentLinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
+        //recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setLayoutManager(mLayoutManager);
+        //recyclerView.scrollToPosition(1);
+
+/*        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+        //StaggeredGridLayoutManager mLayoutManager = new mLayoutManager(2,1);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(mLayoutManager);*/
 
 
         FirebaseRecyclerOptions<ReviewModel> options =
@@ -85,6 +96,39 @@ public class ReviewActivity extends AppCompatActivity {
         recyclerView.setAdapter(reviewAdapter);
 
     }
+
+
+
+
+
+
+    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
+        public WrapContentLinearLayoutManager(Context context) {
+            super(context);
+        }
+
+        public WrapContentLinearLayoutManager(Context context, int orientation, boolean reverseLayout) {
+            super(context, orientation, reverseLayout);
+        }
+
+        public WrapContentLinearLayoutManager(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            super(context, attrs, defStyleAttr, defStyleRes);
+        }
+
+        //... constructor
+        @Override public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try { super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("probe", "meet a IOOBE in RecyclerView"); }
+        }
+    }
+
+
+
+
+
+
+
 
     @Override
     protected void onStart() {
@@ -134,6 +178,5 @@ public class ReviewActivity extends AppCompatActivity {
         reviewAdapter = new ReviewAdapter(options);
         reviewAdapter.startListening();
         recyclerView.setAdapter(reviewAdapter);
-
     }
 }

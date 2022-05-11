@@ -49,12 +49,12 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) { //테이블 생성
         //AUTOINCREMENT : 자동 값 증가
         String query = "CREATE TABLE " + TABLE_NAME +
-                        " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        COLUMN_NAME + " TEXT, " +
-                        COLUMN_TYPE + " TEXT, " +
-                        COLUMN_DATE + " DATE, " +
-                        COLUMN_RES_DATE + " DATE, " +
-                        COLUMN_COLOR + " TEXT );";
+                " (" + COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_TYPE + " TEXT, " +
+                COLUMN_DATE + " DATE, " +
+                COLUMN_RES_DATE + " DATE, " +
+                COLUMN_COLOR + " TEXT );";
         db.execSQL(query);
     }
 

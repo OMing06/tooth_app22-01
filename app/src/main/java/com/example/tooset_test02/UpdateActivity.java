@@ -209,64 +209,6 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-
-
-/*    void confirmDialog_cal() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(name + "을 계속 사용중인가요?");
-        builder.setMessage("사용중이지 않다면 수정 또는 삭제를 권장합니다. 사용중인가요?");
-        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                confirmDialog_calDelete();
-            }
-        });
-        builder.create().show();
-    }*/
-
-
-
-
-
-/*    void confirmDialog_calDelete() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setTitle("Delete " + name);
-        //builder.setMessage("정말 " + name + "을 삭제하시겠습니까?");
-        builder.setTitle(name + "을 삭제할까요?");
-        builder.setMessage("삭제 후 복구되지 않습니다.");
-        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                DBHelper dbHelper = new DBHelper(UpdateActivity.this);
-                dbHelper.deleteOneData(id);
-                finish();
-            }
-        });
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) { }
-        });
-        builder.create().show();
-    }*/
-
-
-
-
-
-
-
-
     public void openColorpicker() {
         int mDefaultColor = 0;
         new MaterialColorPickerDialog
@@ -314,13 +256,13 @@ public class UpdateActivity extends AppCompatActivity {
             }); //라디오 끝
 
         }
-        };
+    };
 
-        public String getDate() {
-            SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
-            String date = simpleDate.format(calendar.getTime());
-            return date;
-        }
+    public String getDate() {
+        SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+        String date = simpleDate.format(calendar.getTime());
+        return date;
+    }
 
 
-        }
+}
