@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/LightColor"
+    android:background="@color/MainColor"
     android:padding="20dp"
     tools:context=".UpdateActivity">
 
@@ -153,12 +153,13 @@
             <Button
                 android:id="@+id/btn_delete"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:background="@drawable/btn_gradient"
+                android:text="Delete"
                 android:textColor="#ffffff"
-                android:backgroundTint="@color/MainColor"
-                android:text="Delete" />
+                app:backgroundTint="@null" />
         </LinearLayout>
     </LinearLayout>
 

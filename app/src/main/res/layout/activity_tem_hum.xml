@@ -19,8 +19,10 @@
             android:id="@+id/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="현재 온도" />
+            android:text="현재 온도"
+            android:textColor="#FFFFFF" />
 
         <TextView
             android:id="@+id/tv_tem"
@@ -28,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:hint="00ºC" />
+            android:hint="00ºC"
+            android:textColor="#FFFFFF" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -38,6 +41,9 @@
                 android:id="@+id/img_water"
                 android:layout_width="match_parent"
                 android:layout_height="294dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:alpha="0.4"
                 app:srcCompat="@drawable/humidity1"
                 tools:ignore="VectorDrawableCompat" />
 
@@ -50,19 +56,21 @@
             android:layout_margin="10dp"
             android:gravity="center"
             android:hint="00%"
-            android:textColor="#FFFFFF"
+            android:textColor="#66a6ff"
             android:textSize="50dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
             android:orientation="vertical">
 
@@ -74,7 +82,8 @@
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:switchPadding="30dp"
-                android:text="ON/OFF" />
+                android:text="ON/OFF"
+                android:textColor="@color/TextColor" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,7 +98,8 @@
                     android:minWidth="48dp"
                     android:minHeight="48dp"
                     android:switchPadding="30dp"
-                    android:text="AUTO" />
+                    android:text="AUTO"
+                    android:textColor="@color/TextColor" />
 
             </LinearLayout>
         </LinearLayout>
@@ -105,8 +115,12 @@
                 android:id="@+id/bt_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:text="Bluetooth" />
+                android:background="@drawable/btnborder"
+                android:text="Bluetooth"
+                android:textColor="#FFFFFF"
+                app:backgroundTint="@null" />
 
         </LinearLayout>
 

@@ -50,11 +50,9 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         holder.tv_review_userName.setText(model.getReviewUserName());
         holder.tv_now.setText(model.getNow_date());
         holder.rv_review_ratingBar.setRating(model.getRating());
-        //holder.reviewCardView.setBackgroundColor(Color.parseColor(model.getColorRandom()));
 
         String imageUrl = null;
         imageUrl = model.getImageUrl();
-        //Picasso.get().load(imageUrl).error(R.drawable.no_picture_image).into(holder.iv_review_image);
         Glide.with(holder.itemView.getContext()).load(imageUrl).error(R.drawable.no_picture_image).into(holder.iv_review_image);
 
         holder.mainLayout2.setOnClickListener(new View.OnClickListener() {

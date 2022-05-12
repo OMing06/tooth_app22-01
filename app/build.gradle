@@ -29,6 +29,9 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     compileSdkVersion 30
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -42,15 +45,19 @@ dependencies {
     implementation 'com.github.dhaval2404:colorpicker:2.0'
     implementation 'com.github.dhaval2404:imagepicker:2.1'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-    implementation 'com.github.chrisbanes:PhotoView:2.2.0'
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+
     implementation 'org.jetbrains:annotations:15.0'
+    implementation 'androidx.navigation:navigation-fragment:2.3.5'
+    implementation 'androidx.navigation:navigation-ui:2.3.5'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "androidx.core:core-ktx:1.5.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.5.0"
     //implementation 'com.github.Dhaval2404:ColorPicker:2.3'
-
+    implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view:3.10.0'
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
     implementation 'com.squareup.picasso:picasso:2.71828'

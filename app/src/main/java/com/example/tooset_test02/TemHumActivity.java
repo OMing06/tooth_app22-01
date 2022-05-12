@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -262,6 +264,7 @@ public class TemHumActivity extends AppCompatActivity {
                                     final String message = new String(encodedBytes, "UTF-8");
                                     readBufferPosition = 0;
                                     handler.post(new Runnable() {
+                                        @SuppressLint("Range")
                                         @Override
                                         public void run() {
                                             if(switch_auto.isChecked() == true) {
@@ -283,8 +286,9 @@ public class TemHumActivity extends AppCompatActivity {
 
 
 
-                                            if(humi > 59) {
+                                            if(humi > 65) {
                                                 img_water.setImageResource(R.drawable.humidity2);
+                                                tv_hum.setTextColor(Color.parseColor("#ff9a9e"));
                                                 gradLayout.setBackgroundResource(R.drawable.bg_gradient2);
                                             }
 

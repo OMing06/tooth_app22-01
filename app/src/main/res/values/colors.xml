@@ -8,13 +8,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="MainColor">#651fff</color>
+    <color name="MainColor">#651fff</color><!--9795f0-->
     <color name="AssistColor1">#C9B6E4</color>
     <color name="AssistColor2">#E1CCEC</color>
     <color name="LightColor">#F2F2F2</color>
     <color name="TextColor">#323133</color>
     <color name="TextColor2">#6E6E6E</color>
     <color name="ErrorColor">#F32424</color>
+
 
     <color name="ErrorColowqr">#AC98D8</color>
 

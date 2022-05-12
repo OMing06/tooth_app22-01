@@ -171,7 +171,6 @@ public class ReviewAddActivity extends AppCompatActivity {
                         final float rating = rv_ratingBar.getRating();
                         if(!(t1.isEmpty() && t2.isEmpty() || t3.isEmpty()) && imageUri != null) {
                             processInsert();
-                            finish();
                         } else {
                             Toast.makeText(ReviewAddActivity.this, "내용을 채워주세요.", Toast.LENGTH_LONG).show();
 
@@ -243,6 +242,8 @@ public class ReviewAddActivity extends AppCompatActivity {
                                     //iv_reviewImage.setImageResource(myUri);
                                     Toast.makeText(getApplicationContext(), "리뷰 작성 완료",
                                             Toast.LENGTH_SHORT).show();
+                                    Intent intent12 = new Intent(ReviewAddActivity.this, ReviewActivity.class);
+                                    startActivity(intent12);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override

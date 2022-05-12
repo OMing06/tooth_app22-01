@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="40dp"
+    android:paddingTop="20dp"
+    android:paddingRight="40dp"
+    android:paddingBottom="20dp"
     tools:context=".LoginActivity">
 
     <TextView
@@ -14,6 +18,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Login"
+        android:textStyle="bold"
         android:textColor="#000000"
         android:textSize="20dp" />
 
@@ -21,6 +26,7 @@
         android:id="@+id/login_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="이메일"
         android:inputType="textEmailAddress"
@@ -30,6 +36,7 @@
         android:id="@+id/login_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPassword"
@@ -39,32 +46,38 @@
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login" />
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btnborder"
+        android:text="Login"
+        android:textColor="#ffffff"
+        app:backgroundTint="@null" />
 
-    <TextView
-        android:id="@+id/textView4"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="계정이 없으신가요?" />
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-    <Button
-        android:id="@+id/join_intent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="join" />
+        <Button
+            android:id="@+id/join_intent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:background="@null"
+            android:backgroundTint="#FFFFFF"
+            android:text="회원가입"
+            android:textColor="@color/TextColor2" />
 
-    <TextView
-        android:id="@+id/link_textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="비밀번호가 기억나지 않나요?" />
-
-    <Button
-        android:id="@+id/pwReset_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="비밀번호 재설정" />
+        <Button
+            android:id="@+id/pwReset_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:backgroundTint="#FFFFFF"
+            android:text="비밀번호 재설정"
+            android:textColor="@color/TextColor2" />
+    </LinearLayout>
 
 </LinearLayout>

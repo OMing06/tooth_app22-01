@@ -1,43 +1,24 @@
 package com.example.tooset_test02;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.StorageTask;
-
-import org.w3c.dom.Document;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class ReviewDetail extends AppCompatActivity {
 
@@ -46,6 +27,9 @@ public class ReviewDetail extends AppCompatActivity {
 
     Uri imageUri;
     String myUri;
+
+    Activity activity;
+    private Context mContext;
 
     FirebaseDatabase mDatabase;
     DatabaseReference mDbRef;
@@ -94,6 +78,20 @@ public class ReviewDetail extends AppCompatActivity {
                     tv_rvGood.setText(good_review);
                     tv_rvBad.setText(bad_review);
                     Glide.with(ReviewDetail.this).load(imageUrl).error(R.drawable.no_picture_image).into(iv_rvImage);
+
+
+                    myUri = null;
+                    myUri = reviewModel.getImageUrl();
+
+                    iv_rvImage.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            mContext = v.getContext();
+                            Intent intent = new Intent(mContext, PhotoViewZoom.class);
+                            intent.putExtra("imageUrl", String.valueOf(reviewModel.getImageUrl()));
+                            mContext.startActivity(intent);
+                        }
+                    });
 
                 }
             }

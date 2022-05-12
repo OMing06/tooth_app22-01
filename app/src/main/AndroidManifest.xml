@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tooset_test02">
         <activity
+            android:name=".PhotoViewZoom"
+            android:exported="true" />
+        <activity
             android:name=".ReviewDetail"
             android:exported="true"
             android:parentActivityName=".ReviewActivity" />

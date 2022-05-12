@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/LightColor"
+    android:background="@color/MainColor"
     android:padding="20dp"
     tools:context=".AddActivity">
 
@@ -141,7 +141,8 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:backgroundTint="@color/MainColor"
+            android:background="@drawable/btn_gradient"
+            app:backgroundTint = "@null"
             android:foregroundGravity="center_vertical|center|center_horizontal"
             android:minHeight="48dp"
             android:text="Add"

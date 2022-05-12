@@ -69,21 +69,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            android:drawableTop="@drawable/starxml"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:stateListAnimator="@null"
-            android:text="."
-            android:textColor="#FFFFFF"
-            tools:ignore="TextContrastCheck" />
-
-        <Button
-            android:id="@+id/faq_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#FFFFFF"
-            android:drawableTop="@drawable/questionxml"
+            android:drawableTop="@drawable/reviewxml"
             android:minWidth="0dp"
             android:minHeight="0dp"
             android:stateListAnimator="@null"

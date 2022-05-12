@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:paddingLeft="40dp"
+    android:paddingTop="20dp"
+    android:paddingRight="40dp"
+    android:paddingBottom="20dp"
     tools:context=".EmailVerifyActivity">
 
     <TextView
@@ -13,22 +17,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="이메일 인증을 완료해주세요."
+        android:text="이메일 인증을 완료해주세요"
         android:textColor="#000000"
+        android:textStyle="bold"
         android:textSize="20dp" />
 
     <TextView
         android:id="@+id/tv_emailVerify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:gravity="center"
+        android:textSize="20dp"
         android:text="Email@email.com" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="위 계정의 이메일 인증 완료 후 \n 재로그인 해 주세요"
         android:textColor="#000000"
@@ -38,6 +45,9 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/btnborder"
+        android:textColor="#ffffff"
         android:text="로그아웃" />
 
 </LinearLayout>

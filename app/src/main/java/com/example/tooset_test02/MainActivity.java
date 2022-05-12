@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton add_button;
-    Button temhum_button, review_button, faq_button, user_button;
+    Button temhum_button, review_button, user_button;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db;
@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
         add_button = findViewById(R.id.add_button);
         temhum_button = findViewById(R.id.temhum_button);
         review_button = findViewById(R.id.review_button);
-        faq_button = findViewById(R.id.faq_button);
         user_button = findViewById(R.id.user_button);
 
 
@@ -122,14 +121,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent3 = new Intent(MainActivity.this, ReviewActivity.class);
                 startActivity(intent3);
-            }
-        });
-
-        faq_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent4 = new Intent(MainActivity.this, FaqActivity.class);
-                startActivity(intent4);
             }
         });
 
