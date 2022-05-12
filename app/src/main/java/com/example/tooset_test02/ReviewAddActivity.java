@@ -285,7 +285,7 @@ public class ReviewAddActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 input = tv_reviewGood.getText().toString();
-                tvgnrl.setText(input.length()+" / 100");
+                tvgnrl.setText(input.length()+" / 500");
                 maxTextSetButton();
             }
 
@@ -300,7 +300,7 @@ public class ReviewAddActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 input = tv_reviewBad.getText().toString();
-                tvgnrl.setText(input.length() + " / 100");
+                tvgnrl.setText(input.length() + " / 500");
                 maxTextSetButton();
             }
 
@@ -312,12 +312,12 @@ public class ReviewAddActivity extends AppCompatActivity {
 
     private void maxTextSetButton() {
         String input = tv_reviewBad.getText().toString();
-        if(input.length() == 100) {
+        if(input.length() > 500) {
+            review_add_button.setBackgroundColor(Color.rgb(0,0,0));
             review_add_button.setEnabled(false);
-            review_add_button.setBackgroundColor(Color.MAGENTA);
-        } else if(input.length() <= 100) {
+
+        } else if(input.length() <= 500) {
             review_add_button.setEnabled(true);
-            review_add_button.setBackgroundColor(Color.YELLOW);
         }
     }
 

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#051367"
     android:orientation="vertical"
+    android:background="@color/LightColor"
     android:padding="20dp"
     tools:context=".UpdateActivity">
 
@@ -15,7 +15,8 @@
         android:layout_margin="5dp"
         android:background="@drawable/round_corner"
         android:orientation="vertical"
-        android:paddingTop="50dp">
+        android:elevation="5dp"
+        android:paddingTop="60dp">
 
         <EditText
             android:id="@+id/update_name"
@@ -56,7 +57,7 @@
             android:layout_marginBottom="20dp"
             android:backgroundTint="#FFFFFF"
             android:text="COLOR"
-            android:textColor="#051367" />
+            android:textColor="@color/TextColor2" />
 
         <LinearLayout
             android:id="@+id/colorView"
@@ -82,7 +83,7 @@
             android:layout_marginRight="20dp"
             android:backgroundTint="#FFFFFF"
             android:text="날짜선택"
-            android:textColor="#051367" />
+            android:textColor="@color/TextColor2" />
 
         <RadioGroup
             android:id="@+id/RadioGroup2"
@@ -116,7 +117,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="center"
             android:text="OOOO / OO /OO"
-            android:textColor="#051367"
+            android:textColor="@color/MainColor"
             android:textSize="20dp" />
 
         <TextView
@@ -128,7 +129,7 @@
             android:layout_marginBottom="30dp"
             android:gravity="center"
             android:text="OOOO / OO / OO"
-            android:textColor="#051367"
+            android:textColor="@color/MainColor"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -147,7 +148,7 @@
                 android:layout_weight="1"
                 android:backgroundTint="#FFFFFF"
                 android:text="UPDATE"
-                android:textColor="#051367" />
+                android:textColor="@color/TextColor2" />
 
             <Button
                 android:id="@+id/btn_delete"
@@ -155,7 +156,8 @@
                 android:layout_height="70dp"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
-                android:backgroundTint="#051367"
+                android:textColor="#ffffff"
+                android:backgroundTint="@color/MainColor"
                 android:text="Delete" />
         </LinearLayout>
     </LinearLayout>

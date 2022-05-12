@@ -20,61 +20,106 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
 
             <TextView
                 android:id="@+id/tv_review_userName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="name" />
 
             <TextView
                 android:id="@+id/tv_review_title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="제목" />
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="left"
+                android:text="제목"
+                android:textColor="@color/TextColor"
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tv_review_good"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:maxLines="2"
-                android:maxWidth="286dp"
-                android:ellipsize="end"
-                android:text="좋았던점" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_review_bad"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    app:srcCompat="@drawable/like" />
+
+                <TextView
+                    android:id="@+id/tv_review_good"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:maxWidth="286dp"
+                    android:maxLines="2"
+                    android:text="좋았던점"
+                    android:textColor="@color/TextColor2" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
-                android:maxLines="2"
-                android:maxWidth="286dp"
-                android:ellipsize="end"
-                android:text="불호" />
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginRight="10dp"
+                    app:srcCompat="@drawable/dislike" />
+
+                <TextView
+                    android:id="@+id/tv_review_bad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="left"
+                    android:maxWidth="286dp"
+                    android:maxLines="2"
+                    android:text="불호"
+                    android:textColor="@color/TextColor2" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_review_image"
+                android:layout_width="match_parent"
+                android:layout_height="270dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/baseline_add_a_photo_24" />
 
             <TextView
                 android:id="@+id/tv_now"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="right"
                 android:text="TextView" />
-
-            <ImageView
-                android:id="@+id/iv_review_image"
-                android:layout_width="350dp"
-                android:layout_height="270dp"
-                android:scaleType="fitXY"
-                app:srcCompat="@drawable/baseline_add_a_photo_24" />
 
             <RatingBar
                 android:id="@+id/rv_review_ratingBar"
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:isIndicator="true"
                 android:numStars="5"
+                android:progressTint="@color/MainColor"
                 android:rating="3"
                 android:stepSize="0.5"
                 tools:ignore="SpeakableTextPresentCheck" />
