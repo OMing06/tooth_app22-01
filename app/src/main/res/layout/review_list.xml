@@ -11,9 +11,8 @@
         android:id="@+id/reviewCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="10dp">
+        android:layout_marginBottom="1dp"
+        app:cardBackgroundColor="#FFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -99,10 +98,10 @@
             <ImageView
                 android:id="@+id/iv_review_image"
                 android:layout_width="match_parent"
-                android:layout_height="270dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:srcCompat="@drawable/baseline_add_a_photo_24" />
 
             <TextView

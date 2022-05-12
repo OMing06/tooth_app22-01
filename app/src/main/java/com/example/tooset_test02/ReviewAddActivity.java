@@ -242,8 +242,14 @@ public class ReviewAddActivity extends AppCompatActivity {
                                     //iv_reviewImage.setImageResource(myUri);
                                     Toast.makeText(getApplicationContext(), "리뷰 작성 완료",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent intent12 = new Intent(ReviewAddActivity.this, ReviewActivity.class);
-                                    startActivity(intent12);
+
+                                    Handler mHandler = new Handler();
+                                    mHandler.postDelayed(new Runnable() {
+                                        public void run() {
+                                            /*Intent intent = new Intent(ReviewAddActivity.this, ReviewActivity.class);
+                                            startActivity(intent);*/
+                                            finish();
+                                        } }, 500); // 0.5초후. 바로 finish()시키니 오류가 나서 0.5초 후로 딜레이를 줬다.
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override

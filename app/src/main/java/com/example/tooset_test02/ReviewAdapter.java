@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -36,6 +37,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
      */
 
     private Context mContext;
+    int count = 0;
 
 
     public ReviewAdapter(@NonNull FirebaseRecyclerOptions<ReviewModel> options) {
@@ -88,8 +90,8 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         ImageView iv_review_image;
         RatingBar rv_review_ratingBar;
         CardView reviewCardView;
-        CheckBox checkBox;
         LinearLayout mainLayout2;
+        Button btn_recommend;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
