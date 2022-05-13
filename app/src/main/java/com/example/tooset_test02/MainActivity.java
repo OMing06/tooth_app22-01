@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent6 = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent6);
-                Toast.makeText(MainActivity.this, "Comming soon!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "Comming soon!", Toast.LENGTH_SHORT).show();
             }
         });
 

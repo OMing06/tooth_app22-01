@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:paddingBottom="2dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="145dp"
-        app:cardCornerRadius="20dp">
+        android:layout_height="150dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,27 +21,33 @@
                 android:id="@+id/iv_search_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_gravity="center"
                 android:layout_marginRight="20dp"
                 app:srcCompat="@drawable/baseline_add_a_photo_24" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingRight="10dp">
 
                 <TextView
                     android:id="@+id/tv_search_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="상품명" />
+                    android:text="상품명"
+                    android:textColor="@color/TextColor"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_search_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="가격" />
+                    android:text="가격"
+                    android:textColor="@color/MainColor" />
 
                 <TextView
                     android:id="@+id/tv_search_url"

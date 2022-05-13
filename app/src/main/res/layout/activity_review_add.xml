@@ -75,9 +75,10 @@
 
         <Button
             android:id="@+id/review_addImage_button"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:background="#80FFFFFF"
             android:backgroundTint="#FFFFFF"
             android:text="사진추가"
             android:textColor="@color/TextColor2" />
@@ -99,7 +100,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:backgroundTint="@color/MainColor"
+            android:backgroundTint="@null"
+            android:background="@drawable/btnborder"
             android:text="확인"
             android:textColor="#FFFFFF" />
 

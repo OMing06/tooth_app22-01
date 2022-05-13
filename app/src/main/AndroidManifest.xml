@@ -13,37 +13,39 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_tooset1"
+        android:icon="@mipmap/ic_launcher_tooset14"
         android:label="TooSet"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tooset_test02">
         <activity
             android:name=".SearchActivity"
-            android:exported="true" />
-        <activity
-            android:name=".WebViewActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Search"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ReviewDetail"
             android:exported="true"
+            android:label="Detail"
             android:parentActivityName=".ReviewActivity" />
         <activity
             android:name=".EmailVerifyActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Email Verify" />
         <activity
             android:name=".ReviewAddActivity"
             android:exported="true"
-            android:label="Review Page"
+            android:label="Review"
             android:parentActivityName=".ReviewActivity" />
         <activity
             android:name=".UserAddActivity"
             android:exported="true"
-            android:label="Profile" />
+            android:label="Profile"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".PasswordResetActivity"
             android:exported="true"
-            android:label="Password Reset Page"
+            android:label="Password Reset"
             android:parentActivityName=".LoginActivity" />
         <activity
             android:name=".LoginActivity"
@@ -62,21 +64,22 @@
         <activity
             android:name=".ReviewActivity"
             android:exported="false"
-            android:label="Review Page"
+            android:label="Review"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".TemHumActivity"
             android:exported="false"
-            android:label="Humidity Page"
+            android:label="Humidity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".UpdateActivity"
             android:exported="false"
+            android:label="Update"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".AddActivity"
             android:exported="false"
-            android:label="Add Page"
+            android:label="Add"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"

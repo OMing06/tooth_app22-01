@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/MainColor"
+    android:background="#4317A5"
     android:padding="20dp"
     tools:context=".AddActivity">
 
@@ -13,8 +13,8 @@
         android:layout_height="match_parent"
         android:layout_margin="5dp"
         android:background="@drawable/round_corner"
-        android:orientation="vertical"
         android:elevation="5dp"
+        android:orientation="vertical"
         android:paddingTop="60dp">
 
         <EditText
@@ -141,12 +141,12 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_margin="20dp"
-            android:background="@drawable/btn_gradient"
-            app:backgroundTint = "@null"
+            android:background="@drawable/btnborder"
             android:foregroundGravity="center_vertical|center|center_horizontal"
             android:minHeight="48dp"
             android:text="Add"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            app:backgroundTint="@null" />
 
     </LinearLayout>
 
