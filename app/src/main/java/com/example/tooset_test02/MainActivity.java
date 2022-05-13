@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent6 = new Intent(MainActivity.this, SrcActivity.class);
+                Intent intent6 = new Intent(MainActivity.this, SearchActivity.class);
                 startActivity(intent6);
                 Toast.makeText(MainActivity.this, "Comming soon!", Toast.LENGTH_SHORT).show();
             }

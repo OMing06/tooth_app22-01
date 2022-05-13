@@ -14,24 +14,25 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-public class SrcAdapter extends RecyclerView.Adapter<SrcAdapter.ViewHolder> {
-    ArrayList<SrcModel.SearchItems> items = new ArrayList<>();
-    SrcActivity mSrcActivity;
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> {
+    ArrayList<SearchModel.SearchItems> items = new ArrayList<>();
+    SearchActivity mSearchActivity;
+    private Context mContext;
 
-    public SrcAdapter(SrcActivity srcActivity) {
-        mSrcActivity = srcActivity;
+    public SearchAdapter(SearchActivity searchActivity) {
+        mSearchActivity = searchActivity;
     }
 
     @NonNull
     @Override
-    public SrcAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = (LayoutInflater) mSrcActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View itemView = inflater.inflate(R.layout.search_item, parent, false);
+    public SearchAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = (LayoutInflater) mSearchActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View itemView = inflater.inflate(R.layout.search_list, parent, false);
         return new ViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SrcAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
         holder.setItem(items.get(position));
     }
 
@@ -40,11 +41,11 @@ public class SrcAdapter extends RecyclerView.Adapter<SrcAdapter.ViewHolder> {
         return items.size();
     }
 
-    public void addItem(SrcModel.SearchItems item) {
+    public void addItem(SearchModel.SearchItems item) {
         items.add(item);
     }
 
-    public void setItems(ArrayList<SrcModel.SearchItems> items) {
+    public void setItems(ArrayList<SearchModel.SearchItems> items) {
         this.items = items;
     }
 
@@ -61,18 +62,17 @@ public class SrcAdapter extends RecyclerView.Adapter<SrcAdapter.ViewHolder> {
             tv_search_url = findViewById(R.id.tv_search_url);
         }
 
-        void setItem(SrcModel.SearchItems item) {
+        void setItem(SearchModel.SearchItems item) {
             tv_search_name.setText(removeSpecialCha(item.title));
             tv_search_price.setText(item.lprice+" 원");
             tv_search_url.setText(item.link);
 
 
-            /*String imageUrl;
-            imageUrl = item.image;
-            Glide.with(imageUrl)
+            String imageUrl = item.image;
+            Glide.with(itemView.getContext())
                     .load(imageUrl)
                     .error(R.drawable.no_picture_image)
-                    .into(iv_search_image);*/
+                    .into(iv_search_image);
         }
 
         private <T extends View>T findViewById(int id) {

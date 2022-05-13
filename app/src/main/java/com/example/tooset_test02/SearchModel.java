@@ -4,7 +4,7 @@ import com.android.volley.RequestQueue;
 
 import java.util.ArrayList;
 
-public class SrcModel {
+public class SearchModel {
     public static RequestQueue requestQueue;
     public static String CLIENT_ID = "PiLiJOcYH2JyD7C734rQ";
     public static String CLIENT_SECRET = "ZQOwdRVfqg";
