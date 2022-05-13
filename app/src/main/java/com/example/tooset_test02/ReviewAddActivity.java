@@ -270,7 +270,7 @@ public class ReviewAddActivity extends AppCompatActivity {
     private String getTime() {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd a KK:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd a hh:mm");
         String getTime = dateFormat.format(date);
         return getTime;
     }

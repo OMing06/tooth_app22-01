@@ -18,12 +18,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.firebase.ui.auth.util.ui.fieldvalidators.EmailFieldValidator;
-import com.firebase.ui.auth.viewmodel.email.EmailLinkSignInHandler;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -37,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     FloatingActionButton add_button;
-    Button temhum_button, review_button, user_button;
+    Button temhum_button, review_button, user_button, search_button;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db;
@@ -97,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         temhum_button = findViewById(R.id.temhum_button);
         review_button = findViewById(R.id.review_button);
         user_button = findViewById(R.id.user_button);
+        search_button = findViewById(R.id.search_button);
 
 
 
@@ -131,6 +129,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent5);
             }
         });
+
+        search_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent6 = new Intent(MainActivity.this, SrcActivity.class);
+                startActivity(intent6);
+                Toast.makeText(MainActivity.this, "Comming soon!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
 
         dbHelper = new DBHelper(MainActivity.this);
         tooset_id = new ArrayList<>();

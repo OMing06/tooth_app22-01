@@ -86,10 +86,7 @@ public class ReviewDetail extends AppCompatActivity {
                     iv_rvImage.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mContext = v.getContext();
-                            Intent intent = new Intent(mContext, PhotoViewZoom.class);
-                            intent.putExtra("imageUrl", String.valueOf(reviewModel.getImageUrl()));
-                            mContext.startActivity(intent);
+
                         }
                     });
 

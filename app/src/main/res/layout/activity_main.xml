@@ -78,6 +78,20 @@
             tools:ignore="TextContrastCheck" />
 
         <Button
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:drawableTop="@drawable/transparencyxml"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:stateListAnimator="@null"
+            android:text="."
+            android:textColor="#FFFFFF"
+            tools:ignore="TextContrastCheck" />
+
+        <Button
             android:id="@+id/user_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
