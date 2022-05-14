@@ -1,10 +1,12 @@
 package com.example.tooset_test02;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
         holder.setItem(items.get(position));
+
     }
 
     @Override
@@ -52,6 +55,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView iv_search_image;
         TextView tv_search_name, tv_search_price, tv_search_url;
+        LinearLayout mainLayout3;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,13 +63,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             iv_search_image = findViewById(R.id.iv_search_image);
             tv_search_name = findViewById(R.id.tv_search_name);
             tv_search_price = findViewById(R.id.tv_search_price);
-            tv_search_url = findViewById(R.id.tv_search_url);
+            //tv_search_url = findViewById(R.id.tv_search_url);
+            mainLayout3 = findViewById(R.id.mainLayout3);
         }
 
         void setItem(SearchModel.SearchItems item) {
             tv_search_name.setText(removeSpecialCha(item.title));
             tv_search_price.setText(item.lprice+" 원");
-            tv_search_url.setText(item.link);
+            //tv_search_url.setText(item.link);
 
 
             String imageUrl = item.image;
@@ -73,6 +78,22 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     .load(imageUrl)
                     .error(R.drawable.no_picture_image)
                     .into(iv_search_image);
+
+
+
+
+            mainLayout3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mContext = v.getContext();
+
+                    Intent intent = new Intent(mContext, SearchUrl.class);
+                    intent.putExtra("link", String.valueOf(item.link));
+                    mContext.startActivity(intent); //결과값 전달
+                }
+            });
+
+
         }
 
         private <T extends View>T findViewById(int id) {

@@ -12,12 +12,16 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_tooset14"
         android:label="TooSet"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Tooset_test02">
+        <activity
+            android:name=".SearchUrl"
+            android:exported="true" />
         <activity
             android:name=".SearchActivity"
             android:exported="true"
