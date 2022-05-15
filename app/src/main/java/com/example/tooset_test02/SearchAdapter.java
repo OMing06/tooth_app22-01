@@ -63,14 +63,12 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             iv_search_image = findViewById(R.id.iv_search_image);
             tv_search_name = findViewById(R.id.tv_search_name);
             tv_search_price = findViewById(R.id.tv_search_price);
-            //tv_search_url = findViewById(R.id.tv_search_url);
             mainLayout3 = findViewById(R.id.mainLayout3);
         }
 
         void setItem(SearchModel.SearchItems item) {
             tv_search_name.setText(removeSpecialCha(item.title));
             tv_search_price.setText(item.lprice+" 원");
-            //tv_search_url.setText(item.link);
 
 
             String imageUrl = item.image;
@@ -80,26 +78,21 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                     .into(iv_search_image);
 
 
-
-
             mainLayout3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mContext = v.getContext();
-
                     Intent intent = new Intent(mContext, SearchUrl.class);
                     intent.putExtra("link", String.valueOf(item.link));
-                    mContext.startActivity(intent); //결과값 전달
+                    mContext.startActivity(intent);
                 }
             });
-
 
         }
 
         private <T extends View>T findViewById(int id) {
             return itemView.findViewById(id);
         }
-
     }
 
     private String removeSpecialCha(String text) {

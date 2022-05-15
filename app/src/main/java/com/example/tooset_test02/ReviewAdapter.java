@@ -1,21 +1,14 @@
 package com.example.tooset_test02;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -24,8 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-
-import java.util.Random;
 
 public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAdapter.myViewHolder> {
 
@@ -37,7 +28,6 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
      */
 
     private Context mContext;
-    int count = 0;
 
 
     public ReviewAdapter(@NonNull FirebaseRecyclerOptions<ReviewModel> options) {
@@ -50,6 +40,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
         holder.tv_review_good.setText(model.getGood_review());
         holder.tv_review_bad.setText(model.getBad_review());
         holder.tv_review_userName.setText(model.getReviewUserName());
+        holder.tv_review_email.setText(model.getReviewUserEmail());
         holder.tv_now.setText(model.getNow_date());
         holder.rv_review_ratingBar.setRating(model.getRating());
 
@@ -66,6 +57,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
                 intent.putExtra("good_review", String.valueOf(model.getGood_review()));
                 intent.putExtra("bad_review", String.valueOf(model.getBad_review()));
                 intent.putExtra("reviewUserName", String.valueOf(model.getReviewUserName()));
+                intent.putExtra("reviewUserEmail", String.valueOf(model.getReviewUserEmail()));
                 intent.putExtra("now_date", String.valueOf(model.getNow_date()));
                 intent.putExtra("imageUrl", String.valueOf(model.getImageUrl()));
 
@@ -86,12 +78,11 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName, tv_now;
+        TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName, tv_now, tv_review_email;
         ImageView iv_review_image;
         RatingBar rv_review_ratingBar;
         CardView reviewCardView;
         LinearLayout mainLayout2;
-        Button btn_recommend;
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -100,6 +91,7 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
             tv_review_good = itemView.findViewById(R.id.tv_review_good);
             tv_review_bad = itemView.findViewById(R.id.tv_review_bad);
             tv_review_userName = itemView.findViewById(R.id.tv_review_userName);
+            tv_review_email = itemView.findViewById(R.id.tv_review_email);
             iv_review_image = itemView.findViewById(R.id.iv_review_image);
             rv_review_ratingBar = itemView.findViewById(R.id.rv_review_ratingBar);
             tv_now = itemView.findViewById(R.id.tv_now);

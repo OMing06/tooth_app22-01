@@ -4,27 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -44,20 +36,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
-import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Random;
 
 public class ReviewAddActivity extends AppCompatActivity {
 
@@ -67,14 +52,14 @@ public class ReviewAddActivity extends AppCompatActivity {
     ProgressBar progressBar2;
     RatingBar rv_ratingBar;
 
-    TextView tvgnrl;
+    TextView tv_reviewlength; //글자수세기
 
     Uri imageUri;
     String myUri;
 
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-    DatabaseReference mUserRef, databaseReference;
+    DatabaseReference mUserRef;
     StorageTask uploadTask;
     StorageReference storageProfileRef;
 
@@ -95,16 +80,13 @@ public class ReviewAddActivity extends AppCompatActivity {
         progressBar2 = findViewById(R.id.progressBar2);
         rv_ratingBar = findViewById(R.id.rv_ratingBar);
 
-        tvgnrl = findViewById(R.id.tvgnrl);
+        tv_reviewlength = findViewById(R.id.tvgnrl);
 
         progressBar2.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
         mUser= mAuth.getCurrentUser();
         mUserRef = FirebaseDatabase.getInstance().getReference().child("User");
-        //databaseReference = FirebaseDatabase.getInstance().getReference().child("Reviews");
-
-        //storageProfileRef = FirebaseStorage.getInstance().getReference().child("Review Pic");
         storageProfileRef = FirebaseStorage.getInstance().getReference("Review Pic");
 
 
@@ -180,6 +162,12 @@ public class ReviewAddActivity extends AppCompatActivity {
         builder.create().show();
     }
 
+    private Object getUserInfo() { //이메일정보 가져와 텍스트뷰에 세팅
+        String email;
+        email = mAuth.getCurrentUser().getEmail();
+        return email;
+    }
+
     //선택한 사진 가져오기
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -222,6 +210,7 @@ public class ReviewAddActivity extends AppCompatActivity {
                     map.put("title", tv_reviewTitle.getText().toString());
                     map.put("good_review", tv_reviewGood.getText().toString());
                     map.put("bad_review", tv_reviewBad.getText().toString());
+                    map.put("reviewUserEmail", getUserInfo());
                     map.put("reviewUserName", userNameV);
                     map.put("now_date",getTime());
                     map.put("rating", rv_ratingBar.getRating());
@@ -239,23 +228,18 @@ public class ReviewAddActivity extends AppCompatActivity {
                                     tv_reviewGood.setText("");
                                     tv_reviewBad.setText("");
                                     rv_ratingBar.setRating(rating);
-                                    //iv_reviewImage.setImageResource(myUri);
-                                    Toast.makeText(getApplicationContext(), "리뷰 작성 완료",
-                                            Toast.LENGTH_SHORT).show();
+                                    toastMessage("리뷰 작성 완료!");
 
                                     Handler mHandler = new Handler();
                                     mHandler.postDelayed(new Runnable() {
                                         public void run() {
-                                            /*Intent intent = new Intent(ReviewAddActivity.this, ReviewActivity.class);
-                                            startActivity(intent);*/
                                             finish();
                                         } }, 500); // 0.5초후. 바로 finish()시키니 오류가 나서 0.5초 후로 딜레이를 줬다.
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getApplicationContext(), "작성에 실패했습니다.",
-                                    Toast.LENGTH_SHORT).show();
+                            toastMessage("작성에 실패했습니다.");
                         }
                     });
 
@@ -284,7 +268,6 @@ public class ReviewAddActivity extends AppCompatActivity {
     }
 
     private void maxText() {
-
         tv_reviewGood.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -292,7 +275,7 @@ public class ReviewAddActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 input = tv_reviewGood.getText().toString();
-                tvgnrl.setText(input.length()+" / 500");
+                tv_reviewlength.setText(input.length()+" / 500");
                 maxTextSetButton();
             }
 
@@ -307,25 +290,28 @@ public class ReviewAddActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 input = tv_reviewBad.getText().toString();
-                tvgnrl.setText(input.length() + " / 500");
+                tv_reviewlength.setText(input.length() + " / 500");
                 maxTextSetButton();
             }
-
             @Override
             public void afterTextChanged(Editable s) { }
         });
-
     }
 
     private void maxTextSetButton() {
         String input = tv_reviewBad.getText().toString();
         if(input.length() > 500) {
-            review_add_button.setBackgroundColor(Color.rgb(0,0,0));
+            review_add_button.setBackground(getResources().getDrawable(R.drawable.btnborder_false));
             review_add_button.setEnabled(false);
 
         } else if(input.length() <= 500) {
+            review_add_button.setBackground(getResources().getDrawable(R.drawable.btnborder));
             review_add_button.setEnabled(true);
         }
+    }
+
+    private void toastMessage(String toastMessage) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 
 

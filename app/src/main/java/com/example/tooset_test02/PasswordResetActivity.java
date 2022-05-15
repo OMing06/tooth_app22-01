@@ -3,7 +3,6 @@ package com.example.tooset_test02;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,9 +12,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class PasswordResetActivity extends AppCompatActivity {
 
@@ -34,42 +31,41 @@ public class PasswordResetActivity extends AppCompatActivity {
         sendEmail_button = findViewById(R.id.sendEmail_button);
 
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance(); //유저 정보 인스턴스 생성
 
         sendEmail_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SendResetPassword();
+                sendResetPassword();
             }
         });
-
-
-
 
     }
 
 
-    private void SendResetPassword() {
+    private void sendResetPassword() {
         // 이메일
         String email = write_resetEmail.getText().toString();
 
         //String emailAddress = "user@example.com";
 
-        if(email.length() > 0) {
+        if (email.length() > 0) {
             mAuth.sendPasswordResetEmail(email)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Log.d(TAG, "보냄");
-                                Toast.makeText(PasswordResetActivity.this, "보내기 성공",
-                                        Toast.LENGTH_LONG).show();
+                                toastMessage("보내기에 성공했습니다.");
                             }
                         }
                     });
         } else {
-            Toast.makeText(PasswordResetActivity.this, "이메일을 입력해주세요.",
-                    Toast.LENGTH_LONG).show();
+            toastMessage("이메일을 입력해주세요.");
         }
+    }
+
+    private void toastMessage(String toastMessage) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 }

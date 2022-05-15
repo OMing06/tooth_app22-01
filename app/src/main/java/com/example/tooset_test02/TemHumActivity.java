@@ -36,14 +36,9 @@ public class TemHumActivity extends AppCompatActivity {
 
     ImageView img_water;
     TextView tv_tem, tv_hum;
-    //Button on_btn, off_btn, bt_btn;
     Button bt_btn;
     Switch switch_onOff, switch_auto;
     LinearLayout gradLayout;
-
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String SWITCH_AUTO = "switchAuto";
-    private boolean switchOnOff, swAuto;
 
     BluetoothAdapter bluetoothAdapter;
     UUID uuid;
@@ -54,10 +49,9 @@ public class TemHumActivity extends AppCompatActivity {
     private BluetoothSocket bluetoothSocket = null; // 블루투스 소켓
     private OutputStream outputStream = null; // 블루투스에 데이터를 출력하기 위한 출력 스트림
     private InputStream inputStream = null; // 블루투스에 데이터를 입력하기 위한 입력 스트림
-    private Thread workerThread = null; // 문자열 수신에 사용되는 쓰레드
+    private Thread workerThread = null; // 문자열 수신에 사용되는 thread
     private byte[] readBuffer; // 수신 된 문자열을 저장하기 위한 버퍼
     private int readBufferPosition; // 버퍼 내 문자 저장 위치
-
     int pariedDeviceCount; //페어링 된 디바이스 크기 저장
 
     int temp = 0;
@@ -72,40 +66,21 @@ public class TemHumActivity extends AppCompatActivity {
         setTitle("humidity");
 
         img_water = findViewById(R.id.img_water);
-        //img_water2 = findViewById(R.id.img_water2);
         tv_tem = findViewById(R.id.tv_tem);
         tv_hum = findViewById(R.id.tv_hum);
-        //on_btn = findViewById(R.id.on_btn);
-        //off_btn = findViewById(R.id.off_btn);
         switch_onOff = findViewById(R.id.switch_onOff);
         bt_btn = findViewById(R.id.bt_btn);
         switch_auto = findViewById(R.id.switch_auto);
         gradLayout = findViewById(R.id.gradLayout);
 
-        /*on_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(TemHumActivity.this, "팬을 켭니다.", Toast.LENGTH_SHORT).show();
-                sendData("1");
-            }
-        });
-
-        off_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(TemHumActivity.this, "팬 작동을 종료합니다.", Toast.LENGTH_SHORT).show();
-                sendData("2");
-            }
-        });*/
-
         switch_onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    Toast.makeText(TemHumActivity.this, "팬을 켭니다.", Toast.LENGTH_SHORT).show();
+                    toastMessage("팬을 켭니다.");
                     sendData("1");
                 } else {
-                    Toast.makeText(TemHumActivity.this, "팬 작동을 종료합니다.", Toast.LENGTH_SHORT).show();
+                    toastMessage("팬 작동을 종료합니다.");
                     sendData("2");
                 }
             }
@@ -116,10 +91,10 @@ public class TemHumActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked == false) { //true면
-                    Toast.makeText(TemHumActivity.this, "Auto 모드를 종료합니다.", Toast.LENGTH_SHORT).show();
+                    toastMessage("Auto 모드를 종료합니다.");
                     sendData("2");
                 } else {
-                    Toast.makeText(TemHumActivity.this, "Auto 모드로 전환합니다.", Toast.LENGTH_SHORT).show();
+                    toastMessage("Auto모드로 전환합니다.");
                 }
             }
         });
@@ -142,7 +117,7 @@ public class TemHumActivity extends AppCompatActivity {
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         if(bluetoothAdapter == null) { // 디바이스가 블루투스를 지원하지 않을 때
-            Toast.makeText(getApplicationContext(), "Bluetooth를 지원하지 않는 기기입니다.", Toast.LENGTH_SHORT).show();
+            toastMessage("Bluetooth를 지원하지 않는 기기입니다.");
         }
         else {
             // 디바이스가 블루투스를 지원 할 때
@@ -154,8 +129,7 @@ public class TemHumActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_ENABLE_BT);
 
                 selectBluetoothDevice();
-                Toast.makeText(getApplicationContext(), "휴대폰 설정에서 OMing을 페어링 후 재접속해주세요.", Toast.LENGTH_LONG).show();
-
+                toastMessage("휴대폰 설정에서 OMing을 페어링해주세요.");
                 //페어링 디바이스 목록 안 뜨면 앱 설청 들어가서 근처 기기 권한 허용하라고 안내하기
             }
         }
@@ -171,18 +145,16 @@ public class TemHumActivity extends AppCompatActivity {
         pariedDeviceCount = devices.size();
 
         if(pariedDeviceCount == 0) { //페어링 된 장치 없는 경우
-            Toast.makeText(getApplicationContext(), "블루투스를 연결해주세요.", Toast.LENGTH_SHORT).show();
+            toastMessage("블루투스를 연결해주세요");
         } else {
-            Toast.makeText(getApplicationContext(), "OMing을 연결해주세요.", Toast.LENGTH_SHORT).show();
+            toastMessage("OMing을 연결해주세요.");
             AlertDialog.Builder builder = new AlertDialog.Builder(this); //디바이스 선택 위한 다이얼로그 생성
             builder.setTitle("페어링 된 디바이스");
 
             List<String> list = new ArrayList<>();
-            // 모든 디바이스의 이름을 리스트에 추가
             for(BluetoothDevice bluetoothDevice : devices) {
-                list.add(bluetoothDevice.getName());
+                list.add(bluetoothDevice.getName()); //다이얼로그 목록에 페어링 돼 있는 디바이스 장치 추가
             }
-            //list.add("취소");
 
             final CharSequence[] charSequences = list.toArray(new CharSequence[list.size()]);
             list.toArray(new CharSequence[list.size()]);
@@ -190,15 +162,11 @@ public class TemHumActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    // 해당 디바이스와 연결하는 함수 호출
                     connectDevice(charSequences[which].toString());
                 }
             });
+            builder.setCancelable(false); //뒤로가기 막기
 
-            // 뒤로가기 버튼 누를 때 창이 안닫히도록 설정
-            builder.setCancelable(false);
-
-            // 다이얼로그 생성
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
@@ -206,26 +174,21 @@ public class TemHumActivity extends AppCompatActivity {
     }
 
     private void connectDevice(String deviceName) {
-        //페어링 된 디바이스 모두 탐색
         for(BluetoothDevice tempDevice : devices) {
-            // 사용자가 선택한 이름과 같은 디바이스로 설정하고 반복문 종료
-
-            if(deviceName.equals(tempDevice.getName())) {
+            if(deviceName.equals(tempDevice.getName())) { //페어링 목록 중 사용자가 선택한 것으로 연결하고 반복문 종료
                 bluetoothDevice = tempDevice;
                 break;
 
             }
         }
-        uuid = java.util.UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+        uuid = java.util.UUID.fromString("00001101-0000-1000-8000-00805f9b34fb"); //시리얼 uuid
         try {
             bluetoothSocket = bluetoothDevice.createRfcommSocketToServiceRecord(uuid);
-            bluetoothSocket.connect();
+            bluetoothSocket.connect(); //기기 간 블루투스 연결
 
-            // 데이터 송,수신 스트림을 얻어옵니다.
             outputStream = bluetoothSocket.getOutputStream();
             inputStream = bluetoothSocket.getInputStream();
 
-            // 데이터 수신 함수 호출
             receiveData();
 
         } catch (IOException e) {
@@ -235,32 +198,26 @@ public class TemHumActivity extends AppCompatActivity {
 
     public void receiveData() {
         final Handler handler = new Handler();
-        //데이터 수신을 위한 버퍼 생성
+
         readBufferPosition = 0;
         readBuffer = new byte[1024];
 
-        //데이터 수신을 위한 쓰레드 생성
+        //데이터를 지속적으로 받아오기 위해 핸들러, 스레드를 생성한다.
         workerThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 while (!Thread.currentThread().isInterrupted()) {
                     try {
-                        //데이터 수신 확인
                         int byteAvailable = inputStream.available();
-                        //데이터 수신 된 경우
                         if (byteAvailable > 0) {
-                            //입력 스트림에서 바이트 단위로 읽어옴
                             byte[] bytes = new byte[byteAvailable];
                             inputStream.read(bytes);
-                            //입력 스트림 바이트를 한 바이트씩 읽어옴
                             for (int i = 0; i < byteAvailable; i++) {
                                 byte tempByte = bytes[i];
-                                //개행문자를 기준으로 받음 (한줄)
-                                if (tempByte == '\n') {
-                                    //readBuffer 배열을 encodeBytes로 복사
+                                if (tempByte == '\n') { //엔터 기준으로 값 받아옴
                                     byte[] encodedBytes = new byte[readBufferPosition];
                                     System.arraycopy(readBuffer, 0, encodedBytes, 0, encodedBytes.length);
-                                    //인코딩 된 바이트 배열을 문자열로 변환
+
                                     final String message = new String(encodedBytes, "UTF-8");
                                     readBufferPosition = 0;
                                     handler.post(new Runnable() {
@@ -268,10 +225,17 @@ public class TemHumActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             if(switch_auto.isChecked() == true) {
+                                                //만약 스위치가 on돼 있으면 3이라는 데이터를 보낸다
+                                                //onCreate안의 버튼리스너 안에서 sendData()를 했을 경우 값이 한 번만 보내지기에
+                                                //습도 60도 이하인 시점에 스위치를 on 했을 경우 팬이 켜지지 않았다.
+                                                //60도 이상인 시점에 스위치를 on했을 경우에만 팬이 돌아간다.
+                                                //그러나 핸들러 스레드 안에서 데이터를 보내면 값이 (1초 간격으로)지속적으로 보내지기에
+                                                //60도 이하인 시점에 스위치를 on 해도, 60도 이상이 되면 팬이 켜진다
+                                                //따라서 이 곳에 sendData를 넣었다.
                                                 sendData("3");
                                             }
 
-                                            array = message.split(",", 3);
+                                            array = message.split(",", 3); //반점을 기준으로 받아온 메세지를 쪼개어 배열에 저장한다.
 
                                             tv_hum.setText(array[1] + "%");
                                             tv_tem.setText(array[0] + "ºC");
@@ -279,23 +243,20 @@ public class TemHumActivity extends AppCompatActivity {
                                             humi=Integer.parseInt(array[1]);
                                             temp=Integer.parseInt(array[0]);
 
-                                            //sendData("3");
-
-
-
-
-
-
-                                            if(humi > 65) {
+                                            if(humi > 61) {
                                                 img_water.setImageResource(R.drawable.humidity2);
                                                 tv_hum.setTextColor(Color.parseColor("#ff9a9e"));
                                                 gradLayout.setBackgroundResource(R.drawable.bg_gradient2);
+                                            } else if (humi <= 60) {
+                                                img_water.setImageResource(R.drawable.humidity1);
+                                                tv_hum.setTextColor(Color.parseColor("#66a6ff"));
+                                                gradLayout.setBackgroundResource(R.drawable.bg_gradient1);
                                             }
 
-                                        } //run()
+                                        } //run() 끝
                                     });
                                 }
-                                else { // 개행 문자가 아닐 경우
+                                else {
                                     readBuffer[readBufferPosition++] = tempByte;
                                 }
                             }
@@ -318,10 +279,14 @@ public class TemHumActivity extends AppCompatActivity {
     private void sendData(String text) {
         text += "\n"; //문자열에 개행문자 추가
         try{
-            // 데이터 송신
+            // 데이터 보내기. 위에 "1", "2", "3" 같은 거.
             outputStream.write(text.getBytes());
         }catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void toastMessage(String toastMessage) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 }

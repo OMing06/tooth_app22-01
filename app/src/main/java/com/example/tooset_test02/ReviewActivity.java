@@ -1,11 +1,8 @@
 package com.example.tooset_test02;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,39 +10,28 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.ArrayList;
-
 public class ReviewActivity extends AppCompatActivity {
+
+    private static final String TAG = "ReviewActivity";
 
     FloatingActionButton add_reviewButton;
     RecyclerView recyclerView;
 
     ReviewAdapter reviewAdapter;
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore db;
     FirebaseUser user;
-    private static final String TAG = "ReviewActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,23 +43,8 @@ public class ReviewActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         add_reviewButton = findViewById(R.id.add_reviewButton);
-
         recyclerView = findViewById(R.id.reviewRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        WrapContentLinearLayoutManager mLayoutManager = new WrapContentLinearLayoutManager(this);
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
-        //recyclerView.setLayoutManager(new WrapContentLinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recyclerView.setLayoutManager(mLayoutManager);
-        //recyclerView.scrollToPosition(1);
-
-/*        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        //StaggeredGridLayoutManager mLayoutManager = new mLayoutManager(2,1);
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
-        recyclerView.setLayoutManager(mLayoutManager);*/
-
+        layoutManager();
 
         FirebaseRecyclerOptions<ReviewModel> options =
                 new FirebaseRecyclerOptions.Builder<ReviewModel>()
@@ -89,18 +60,18 @@ public class ReviewActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         reviewAdapter = new ReviewAdapter(options);
         recyclerView.setAdapter(reviewAdapter);
-
     }
 
 
-
-
-
+    private void layoutManager() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        WrapContentLinearLayoutManager mLayoutManager = new WrapContentLinearLayoutManager(this);
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(mLayoutManager);
+    }
 
     public class WrapContentLinearLayoutManager extends LinearLayoutManager {
         public WrapContentLinearLayoutManager(Context context) {
@@ -122,13 +93,6 @@ public class ReviewActivity extends AppCompatActivity {
                 Log.e("probe", "meet a IOOBE in RecyclerView"); }
         }
     }
-
-
-
-
-
-
-
 
     @Override
     protected void onStart() {
@@ -172,11 +136,13 @@ public class ReviewActivity extends AppCompatActivity {
                                 .getInstance().getReference()
                                 .child("Reviews")
                                 .orderByChild("title")//검색기준
-                                .startAt(str).endAt(str+"~"), ReviewModel.class)
+                                .startAt(str).endAt(str + "~"), ReviewModel.class)
                         .build();
 
         reviewAdapter = new ReviewAdapter(options);
         reviewAdapter.startListening();
         recyclerView.setAdapter(reviewAdapter);
     }
+
+
 }

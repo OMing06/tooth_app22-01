@@ -105,6 +105,13 @@
                 android:layout_height="wrap_content"
                 android:text="치간칫솔" />
 
+            <RadioButton
+                android:id="@+id/radioBtn33"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="사용중지" />
+
         </RadioGroup>
 
         <TextView
@@ -159,7 +166,9 @@
                 android:text="Delete"
                 android:textColor="#ffffff"
                 app:backgroundTint="@null" />
+
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -23,9 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
-    EditText searchWard_et;                    //ETSrc, SrcBtn, RecyView
+    EditText et_search;                    //ETSrc, SrcBtn, RecyView
     Button search_btn;
-    RecyclerView recyclerView_searchList;
+    RecyclerView recyclerView;
     SearchAdapter searchAdapter;
 
     @Override
@@ -33,20 +33,20 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        searchWard_et = findViewById(R.id.ETSrc);
+        et_search = findViewById(R.id.ETSrc);
         search_btn = findViewById(R.id.SrcBtn);
-        recyclerView_searchList = findViewById(R.id.RecyView);
+        recyclerView = findViewById(R.id.RecyView);
         searchAdapter = new SearchAdapter(this);
 
         LinearLayoutManager recyclerView_layoutManager = new LinearLayoutManager(getApplicationContext(),
                 RecyclerView.VERTICAL, false);
-        recyclerView_searchList.setLayoutManager(recyclerView_layoutManager);
-        recyclerView_searchList.setAdapter(searchAdapter);
+        recyclerView.setLayoutManager(recyclerView_layoutManager);
+        recyclerView.setAdapter(searchAdapter);
 
         search_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestSearch(String.valueOf(searchWard_et.getText()));
+                requestSearch(String.valueOf(et_search.getText()));
             }
         });
     }

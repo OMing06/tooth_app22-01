@@ -39,7 +39,7 @@ public class JoinActivity extends AppCompatActivity {
         login_intent = findViewById(R.id.login_intent);
 
         // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance(); //유저정보 인스턴스 생성
 
 
         join_button.setOnClickListener(new View.OnClickListener() {
@@ -52,15 +52,14 @@ public class JoinActivity extends AppCompatActivity {
         login_intent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(JoinActivity.this, LoginActivity.class);
-                startActivity(intent);
+                intentActivity(LoginActivity.class);
             }
         });
     }
 
     // When initializing your Activity, check to see if the user is currently signed in.
     @Override
-    public void onStart() {
+    public void onStart() { //로그인 여부 확인
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -74,91 +73,55 @@ public class JoinActivity extends AppCompatActivity {
         //비밀번호 체크
         String passwordCk = write_passCk.getText().toString();
 
-        if (email.length() > 0 && password.length() > 0 && passwordCk.length() > 5) {
+        if (email.length() > 0 && password.length() > 5 && passwordCk.length() > 5) {
             if (password.equals(passwordCk)) {
 
                 mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
 
                             mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()) {
-                                        //Intent intent = new Intent(JoinActivity.this, UserAddActivity.class);
-                                        //startActivity(intent);
-                                        intentFlagActivity(UserAddActivity.class);
-                                        Toast.makeText(JoinActivity.this, "회원가입 성공. 이메일 인증을 위해 메일함을 확인해주세요.", Toast.LENGTH_SHORT).show();
-                                        finish();
-                                    } //if(task.isSuccessful())
+                                    if (task.isSuccessful()) {
+                                        intentFlagActivity(UserAddActivity.class); //회원정보 입력(닉네임 등..)
+                                        toastMessage("이메일 인증을 위해 메일함을 확인해주세요.");
+                                        //finish();
+                                    } //if(task.isSuccessful()) 끝
                                     else {
-                                        Toast.makeText(JoinActivity.this, task.getException().getMessage(),
-                                                Toast.LENGTH_LONG).show();
+                                        toastMessage(task.getException().getMessage());
                                     }
-                                } //public void onComplete(@NonNull Task<Void> task)
+                                } //public void onComplete(@NonNull Task<Void> task) 끝
                             });
 
                         } else {
-                            Toast.makeText(JoinActivity.this, task.getException().getMessage(),
-                                    Toast.LENGTH_LONG).show();
+                            toastMessage(task.getException().getMessage());
                         }
-
-
                     }
                 });
-
-
-
-                /*mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d(TAG, "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()) {
-
-                                                Intent intent = new Intent(JoinActivity.this, UserAddActivity.class);
-                                                startActivity(intent);
-                                                Toast.makeText(JoinActivity.this, "등록 완료", Toast.LENGTH_SHORT).show();
-                                                finish();
-                                            } else {
-                                                if (task.getException() != null) {
-                                                    // If sign in fails, display a message to the user.
-                                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                                    Toast.makeText(JoinActivity.this, "회원가입 실패.",
-                                                            Toast.LENGTH_LONG).show();
-                                                }
-                                            }
-                                        }
-                                    })
-
-
-
-                                }
-                            }
-                        });*/
-                /////////////////
-
-
+            } else if (!password.equals(passwordCk)) {
+                toastMessage("아이디 또는 비밀번호를 확인해주세요.");
             }
-        } else if (passwordCk.length() <= 6) {
-            Toast.makeText(JoinActivity.this, "비밀번호를 6자리 이상 입력해주세요", Toast.LENGTH_LONG).show();
-        } else if (!password.equals(passwordCk)) {
-            Toast.makeText(JoinActivity.this, "회원가입 실패. 아이디 또는 비밀번호를 확인해보세요.",
-                    Toast.LENGTH_LONG).show();
+        } else if (password.length() <= 6) { //비밀번호는 6자리 이상 입력해야 한다.
+            toastMessage("비밀번호를 6자리 이상 입력해주세요.");
         }
     }
 
     Intent intent = getIntent();
 
-    private void intentFlagActivity(Class c) {
+    private void intentFlagActivity(Class c) { //뒤로가기를 누르면 어플이 바로 종료되게끔.
         Intent intent = new Intent(this, c);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private void intentActivity(Class c) {
+        Intent intent = new Intent(this, c);
+        startActivity(intent);
+    }
+
+    private void toastMessage(String toastMessage) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 }
