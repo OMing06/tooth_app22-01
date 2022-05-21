@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+<<<<<<< HEAD
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+=======
+>>>>>>> 0fa0245e94506fed904e9e9f6652f602ec035a00
 
 public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAdapter.myViewHolder> {
 
@@ -35,7 +38,10 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
      */
 
     private Context mContext;
+<<<<<<< HEAD
     Boolean likeClick = false;
+=======
+>>>>>>> 0fa0245e94506fed904e9e9f6652f602ec035a00
 
 
     public ReviewAdapter(@NonNull FirebaseRecyclerOptions<ReviewModel> options) {
@@ -118,12 +124,20 @@ public class ReviewAdapter extends FirebaseRecyclerAdapter<ReviewModel, ReviewAd
 
     class myViewHolder extends RecyclerView.ViewHolder {
 
+<<<<<<< HEAD
         TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName, tv_now, tv_review_email, tv_review_likeCount;
         ImageView iv_review_image, iv_review_like;
         RatingBar rv_review_ratingBar;
         CardView reviewCardView;
         LinearLayout mainLayout2;
         DatabaseReference likeReference;
+=======
+        TextView tv_review_title, tv_review_good, tv_review_bad, tv_review_userName, tv_now, tv_review_email;
+        ImageView iv_review_image;
+        RatingBar rv_review_ratingBar;
+        CardView reviewCardView;
+        LinearLayout mainLayout2;
+>>>>>>> 0fa0245e94506fed904e9e9f6652f602ec035a00
 
         public myViewHolder(@NonNull View itemView) {
             super(itemView);

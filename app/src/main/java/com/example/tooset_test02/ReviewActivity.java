@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.Button;
+=======
+>>>>>>> 0fa0245e94506fed904e9e9f6652f602ec035a00
 import android.widget.SearchView;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -20,7 +23,10 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+<<<<<<< HEAD
 import com.google.firebase.database.DatabaseReference;
+=======
+>>>>>>> 0fa0245e94506fed904e9e9f6652f602ec035a00
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -47,10 +53,13 @@ public class ReviewActivity extends AppCompatActivity {
 
         add_reviewButton = findViewById(R.id.add_reviewButton);
         recyclerView = findViewById(R.id.reviewRecyclerView);
+<<<<<<< HEAD
 
         likeReference = FirebaseDatabase.getInstance().getReference("Likes");
 
 
+=======
+>>>>>>> 0fa0245e94506fed904e9e9f6652f602ec035a00
         layoutManager();
 
         FirebaseRecyclerOptions<ReviewModel> options =

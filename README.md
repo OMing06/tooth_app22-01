@@ -1,5 +1,7 @@
 "# tooth_app22-01" 
 //Arduino code.ino
+#include <LiquidCrystal_I2C.h>
+LiquidCrystal_I2C lcd(0x27, 16, 2); //LCD
 
 #include <SoftwareSerial.h>
 SoftwareSerial btSerial(4, 3);
@@ -13,7 +15,6 @@ DHT dht(DHTPIN, DHTTYPE);
 #define LED_R 8
 
 int coolfan = 6;
-
 int temperature, humidity;
 
 char message;
@@ -21,6 +22,10 @@ char message;
 void setup() {
   Serial.begin(9600);
   btSerial.begin(9600);
+
+  lcd.init();
+  lcd.backlight();
+  
   dht.begin();
   delay(1000);
 
@@ -33,11 +38,6 @@ void loop() {
   humidity = dht.readHumidity(); //습도
   temperature = dht.readTemperature(); //온도
   
-  
-  
-  
-  
-
   if(btSerial.available()) {
     message = char(btSerial.read());
     if(message == '1') {
@@ -61,6 +61,7 @@ void loop() {
   DHT_readBT();
   DHT_content();
   LED_content();
+  LCD_print();
 }
 
 void AUTO_mode() {
@@ -88,3 +89,17 @@ void LED_content() {
   if(humidity > 59) digitalWrite(LED_R, HIGH);
   else digitalWrite(LED_R, LOW);
 }
+
+void LCD_print() {
+  delay(1000); //lcd
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("Temp : ");
+  lcd.setCursor(7,0);
+  lcd.print(temperature);
+  lcd.setCursor(0,1);
+  lcd.print("Humi : ");
+  lcd.setCursor(7,1);
+  lcd.print(humidity);
+  delay(1000);
+  }
