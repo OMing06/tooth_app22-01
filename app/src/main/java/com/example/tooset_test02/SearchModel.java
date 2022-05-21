@@ -9,6 +9,7 @@ public class SearchModel {
     public static String CLIENT_ID = "PiLiJOcYH2JyD7C734rQ";
     public static String CLIENT_SECRET = "ZQOwdRVfqg";
     public static String HOST = "https://openapi.naver.com/v1/search/shop.json";
+
     public class SearchItem {
         String lastBuildDate; //검색 결과를 생성한 시간이다.
         String total; //검색 결과 문서의 총 개수를 의미한다.

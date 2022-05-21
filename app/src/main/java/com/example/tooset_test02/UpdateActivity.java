@@ -6,14 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.github.dhaval2404.colorpicker.MaterialColorPickerDialog;
@@ -38,7 +42,6 @@ public class UpdateActivity extends AppCompatActivity {
     String id, name, type, date, resdate, color;
 
     Calendar calendar;
-    DatePickerDialog datePickerDialog;
     int nowYear, nowMonth, nowDay;
     boolean now;
 
@@ -56,18 +59,13 @@ public class UpdateActivity extends AppCompatActivity {
 
         edit_date2 = findViewById(R.id.edit_date2);
         edit_result2 = findViewById(R.id.d_day_View2);
-
         update_name = findViewById(R.id.update_name);
         update_type = findViewById(R.id.update_type);
-
         btn_color = findViewById(R.id.update_color2);
-
         btn_date = findViewById(R.id.btn_date2);
         btn_update = findViewById(R.id.btn_update);
         btn_delete = findViewById(R.id.btn_delete);
-
         edit_color = findViewById(R.id.textViewColor);
-
         radioGroup2 = findViewById(R.id.RadioGroup2);
 
         getAndSetIntentData();
@@ -90,16 +88,7 @@ public class UpdateActivity extends AppCompatActivity {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 confirmDialog_update();
-                /*DBHelper dbHelper = new DBHelper(UpdateActivity.this);
-
-                name = update_name.getText().toString().trim();
-                type = update_type.getText().toString().trim();
-                date = edit_date2.getText().toString().trim();
-                resdate = edit_result2.getText().toString().trim();
-                color = edit_color.getText().toString().trim();
-                dbHelper.updateData(id, name, type, date, resdate, color);*/
 
             }
         });
@@ -111,11 +100,28 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
 
+
+        radioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.radioBtn33) {
+                    edit_result2.setText("사용중지");
+                    Toast.makeText(UpdateActivity.this, name + "을 사용중지합니다. 후에 수정해주세요.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(name);
 
 
-    }
+        }
+
+
+
+
+
+
 
     void getAndSetIntentData() {
         if(getIntent().hasExtra("id") &&
@@ -134,18 +140,6 @@ public class UpdateActivity extends AppCompatActivity {
             resdate = getIntent().getStringExtra("resdate");
             color = getIntent().getStringExtra("color");
 
-
-
-            /*Calendar currentTime = Calendar.getInstance();
-            int dayOfMonthDialogV = currentTime.get(Calendar.DAY_OF_MONTH);
-            if(dayOfMonthDialogV == 10) {
-                confirmDialog_cal();
-            }*/
-
-
-
-
-
             //Intent에 데이터 세팅함
             update_name.setText(name);
             update_type.setText(type);
@@ -161,8 +155,6 @@ public class UpdateActivity extends AppCompatActivity {
 
     void confirmDialog_update() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setTitle("Update " + name);
-        //builder.setMessage(name + "을 수정하시겠습니까?");
         builder.setTitle(name + "을 수정하시겠습니까?");
         builder.setMessage("수정 후 복구되지 않습니다.");
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
@@ -189,8 +181,6 @@ public class UpdateActivity extends AppCompatActivity {
 
     void confirmDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setTitle("Delete " + name);
-        //builder.setMessage("정말 " + name + "을 삭제하시겠습니까?");
         builder.setTitle("정말 " + name + "을 삭제하시겠습니까?");
         builder.setMessage("삭제 후 복구되지 않습니다.");
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
@@ -241,16 +231,12 @@ public class UpdateActivity extends AppCompatActivity {
                         calendar = Calendar.getInstance();
                         calendar.set(year, (month), (dayOfMonth + 79));
                         edit_result2.setText(getDate());
-
-
                     }
                     else if (checkedId == R.id.radioBtn22) {
                         edit_date2.setText(year + "년 " + (month + 1) + "월 " + dayOfMonth + "일");
                         calendar = Calendar.getInstance();
                         calendar.set(year, (month), (dayOfMonth + 6));
                         edit_result2.setText(getDate());
-
-
                     }
                 }
             }); //라디오 끝

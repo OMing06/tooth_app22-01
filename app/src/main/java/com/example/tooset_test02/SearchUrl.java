@@ -19,9 +19,7 @@ public class SearchUrl extends AppCompatActivity {
         webView = findViewById(R.id.webView);
         webView.setWebViewClient(new WebViewClient());
 
-
         link = getIntent().getStringExtra("link");
-
         webView.loadUrl(link);
     }
 }

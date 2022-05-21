@@ -14,7 +14,7 @@
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_tooset14"
+        android:icon="@mipmap/ic_launcher_tooset20"
         android:label="TooSet"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
@@ -60,11 +60,6 @@
             android:name=".JoinActivity"
             android:exported="true"
             android:label="Join" />
-        <activity
-            android:name=".FaqActivity"
-            android:exported="false"
-            android:label="FAQ"
-            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".ReviewActivity"
             android:exported="false"

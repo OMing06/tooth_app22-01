@@ -32,19 +32,20 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "MainActivity";
+
     RecyclerView recyclerView;
     FloatingActionButton add_button;
     Button temhum_button, review_button, user_button, search_button;
 
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseFirestore db;
-    FirebaseUser user;
-    UserInfo profile;
-    private static final String TAG = "MainActivity";
-
     DBHelper dbHelper;
     ArrayList<String> tooset_id, tooset_name, tooset_type, tooset_date, tooset_resdate, tooset_color;
     TooSetAdapter tooSetAdapter;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore db;
+    FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +55,11 @@ public class MainActivity extends AppCompatActivity {
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
 
-        if(user == null) { //로그인 돼 있지 않으면
+        if (user == null) { //로그인 돼 있지 않으면
             intentFlagActivity(LoginActivity.class);
-        } else if(!user.isEmailVerified()){
+        } else if (!user.isEmailVerified()) { //이메일 인증 돼 있지 않으면
             intentFlagActivity(EmailVerifyActivity.class);
-        }
-        else { //로그인하면
+        } else { //로그인하면
             DocumentReference docRef = db.collection("users").document(user.getUid());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
 
-                        if(document != null) {
+                        if (document != null) {
                             if (document.exists()) {
                                 Log.d(TAG, "DocumentSnapshot data: " + document.getData());
 
@@ -96,52 +96,40 @@ public class MainActivity extends AppCompatActivity {
         user_button = findViewById(R.id.user_button);
         search_button = findViewById(R.id.search_button);
 
-
-
         add_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddActivity.class);
-                startActivity(intent);
+                intentActivity(AddActivity.class);
             }
         });
 
         temhum_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(MainActivity.this, TemHumActivity.class);
-                startActivity(intent2);
+                intentActivity(TemHumActivity.class);
             }
         });
 
         review_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(MainActivity.this, ReviewActivity.class);
-                startActivity(intent3);
+                intentActivity(ReviewActivity.class);
             }
         });
 
         user_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent5 = new Intent(MainActivity.this, UserAddActivity.class);
-                startActivity(intent5);
+                intentActivity(UserAddActivity.class);
             }
         });
 
         search_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent6 = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(intent6);
-                //Toast.makeText(MainActivity.this, "Comming soon!", Toast.LENGTH_SHORT).show();
+                intentActivity(SearchActivity.class);
             }
         });
-
-
-
-
 
 
         dbHelper = new DBHelper(MainActivity.this);
@@ -170,10 +158,9 @@ public class MainActivity extends AppCompatActivity {
 
     void ViewDataArrays() { //db데이터 가져옴
         Cursor cursor = dbHelper.readAllData();
-        if(cursor.getCount() == 0) {
-            Toast.makeText(this, "No Data", Toast.LENGTH_SHORT).show();
-        }
-        else {
+        if (cursor.getCount() == 0) {
+            toastMessage("No Data");
+        } else {
             while (cursor.moveToNext()) {
                 tooset_id.add(cursor.getString(0));
                 tooset_name.add(cursor.getString(1));
@@ -209,5 +196,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, c);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+    }
+
+    private void toastMessage(String toastMessage) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 }

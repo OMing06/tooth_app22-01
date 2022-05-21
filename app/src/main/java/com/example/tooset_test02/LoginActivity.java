@@ -46,8 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         join_intent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, JoinActivity.class);
-                startActivity(intent);
+                intentActivity(JoinActivity.class);
             }
         });
 
@@ -62,15 +61,14 @@ public class LoginActivity extends AppCompatActivity {
         pwReset_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, PasswordResetActivity.class);
-                startActivity(intent);
+                intentActivity(PasswordResetActivity.class);
             }
         });
     }
 
     // When initializing your Activity, check to see if the user is currently signed in.
     @Override
-    public void onStart() { //로그인돼있는지 확인
+    public void onStart() { //로그인 여부 확인
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -82,44 +80,47 @@ public class LoginActivity extends AppCompatActivity {
         // 비밀번호
         String password = login_password.getText().toString();
 
-        if(email.length() > 0 && password.length() > 0) {
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+        if(email.length() > 0 && password.length() > 0) { //이메일과 비밀번호를 입력했으면
+            mAuth.signInWithEmailAndPassword(email, password) //로그인
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() { //로그인 완료 시
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                            if (task.isSuccessful()) { //로그인 성공 시
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d(TAG, "signInWithEmail:success");
-                                Toast.makeText(LoginActivity.this, "로그인 성공.",
-                                        Toast.LENGTH_LONG).show();
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                startActivity(intent);
+                                toastMessage("로그인 성공");
+                                intentActivity(MainActivity.class);
                                 onBackPressed();
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 //updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "아이디 또는 비밀번호를 확인해주세요.",
-                                        Toast.LENGTH_LONG).show();
+                                toastMessage("아이디 또는 비밀번호를 확인해주세요.");
                                 //updateUI(null);
                             }
                         }
                     });
 
         }  else {
-            Toast.makeText(LoginActivity.this, "아이디 또는 비밀번호를 입력해주세요.", Toast.LENGTH_LONG).show();
+            toastMessage("아이디 또는 비밀번호를 입력해주세요.");
         }
     }
+
     Intent intent = getIntent();
-
-
-
-
 
 
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    private void intentActivity(Class c) {
+        Intent intent = new Intent(this, c);
+        startActivity(intent);
+    }
+
+    private void toastMessage(String toastMessage) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_LONG).show();
     }
 }

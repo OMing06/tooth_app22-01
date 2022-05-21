@@ -8,7 +8,7 @@ public class ReviewModel {
     private String now_date;
     private String imageUrl;
     private String reviewUserName;
-
+    private String reviewUserEmail;
     private float rating;
 
     public ReviewModel() {
@@ -16,13 +16,15 @@ public class ReviewModel {
     }
 
     public ReviewModel(String title, String good_review, String bad_review,
-                       String reviewUserName, String now_date, String imageUrl, float rating, int recommend) {
+                       String reviewUserName, String reviewUserEmail, String now_date, String imageUrl, float rating, int recommend) {
         this.title = title;
         this.good_review = good_review;
         this.bad_review = bad_review;
         this.reviewUserName = reviewUserName;
+        this.reviewUserEmail = reviewUserEmail;
         this.now_date = now_date;
         this.imageUrl = imageUrl;
+
         this.rating = rating;
     }
 
@@ -82,8 +84,13 @@ public class ReviewModel {
         this.rating = rating;
     }
 
+    public String getReviewUserEmail() {
+        return reviewUserEmail;
+    }
 
-
+    public void setReviewUserEmail(String reviewUserEmail) {
+        this.reviewUserEmail = reviewUserEmail;
+    }
 
 
 }

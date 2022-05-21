@@ -30,7 +30,6 @@ public class AddActivity extends AppCompatActivity {
     RadioGroup radioGroup;
 
     Calendar calendar;
-    DatePickerDialog datePickerDialog;
     int nowYear, nowMonth, nowDay;
     SimpleDateFormat simpleDate;
 
@@ -47,9 +46,7 @@ public class AddActivity extends AppCompatActivity {
         edit_date = findViewById(R.id.edit_date);
         edit_result = findViewById(R.id.d_day_View);
         btn_add = findViewById(R.id.btn_update);
-
         textViewColor = findViewById(R.id.textViewColor);
-
         radioGroup = findViewById(R.id.RadioGroup);
 
         calendar = Calendar.getInstance();

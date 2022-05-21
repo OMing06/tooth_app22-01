@@ -18,6 +18,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -59,12 +60,14 @@ public class UserAddActivity extends AppCompatActivity {
     private static final String TAG = "UserAddActivity";
 
     EditText write_nickname;
+    TextView tv_profileEmail;
     Button profile_add_button, revokeUser_button;
     CircleImageView profile_image;
     FloatingActionButton imagePick_button;
     ProgressBar progressBar;
 
     private DatabaseReference databaseReference;
+    private FirebaseUser user;
     private FirebaseAuth mAuth;
     private Uri imageUri;
     private String myUri = "";
@@ -84,12 +87,14 @@ public class UserAddActivity extends AppCompatActivity {
         imagePick_button = findViewById(R.id.imagePick_button);
         progressBar = findViewById(R.id.progressBar);
         revokeUser_button = findViewById(R.id.revokeUser_button);
+        tv_profileEmail = findViewById(R.id.tv_profileEmail);
 
         progressBar.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
         storageProfileRef = FirebaseStorage.getInstance().getReference().child("Profile Pic");
+        user = mAuth.getInstance().getCurrentUser();
 
         imagePick_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +137,11 @@ public class UserAddActivity extends AppCompatActivity {
         databaseReference.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                String email = tv_profileEmail.getText().toString();
+                email = mAuth.getCurrentUser().getEmail();
+                tv_profileEmail.setText(email);
+
                 if(dataSnapshot.exists() && dataSnapshot.getChildrenCount() > 0) {
                     String name = dataSnapshot.child("name").getValue().toString();
 
@@ -203,10 +213,6 @@ public class UserAddActivity extends AppCompatActivity {
                 }
             }
         });
-        //}
-        /*else {
-            Toast.makeText(this, "이미지가 선택되지 않았습니다", Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     private void choosePicture() {
@@ -224,8 +230,6 @@ public class UserAddActivity extends AppCompatActivity {
 
     void reVokeUser_dialog1() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setTitle("Update " + name);
-        //builder.setMessage(name + "을 수정하시겠습니까?");
         builder.setTitle("정말 탈퇴하시겠습니까?");
         builder.setMessage("탈퇴 후 복구되지 않습니다.");
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
@@ -244,8 +248,6 @@ public class UserAddActivity extends AppCompatActivity {
 
     void reVokeUser_dialog2() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        //builder.setTitle("Update " + name);
-        //builder.setMessage(name + "을 수정하시겠습니까?");
         builder.setTitle("다시 한 번 생각해보세요.");
         builder.setMessage("탈퇴 후 복구되지 않습니다.");
         builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
@@ -262,8 +264,6 @@ public class UserAddActivity extends AppCompatActivity {
         });
         builder.create().show();
     }
-
-
 
     private void intentFlagActivity(Class c) {
         Intent intent = new Intent(this, c);
