@@ -20,9 +20,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Tooset_test02">
         <activity
-            android:name=".SearchUrl"
-            android:exported="true" />
-        <activity
             android:name=".SearchActivity"
             android:exported="true"
             android:label="Search"

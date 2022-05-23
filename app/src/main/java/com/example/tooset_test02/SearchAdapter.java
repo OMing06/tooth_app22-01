@@ -2,6 +2,7 @@ package com.example.tooset_test02;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,8 +83,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 @Override
                 public void onClick(View v) {
                     mContext = v.getContext();
-                    Intent intent = new Intent(mContext, SearchUrl.class);
-                    intent.putExtra("link", String.valueOf(item.link));
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(item.link));
+                    //intent.putExtra("link", String.valueOf(item.link));
                     mContext.startActivity(intent);
                 }
             });
